@@ -1,0 +1,128 @@
+local Fluent = loadstring(game:HttpGet("https://github.com/dawid-scripts/Fluent/releases/latest/download/main.lua"))()
+local SaveManager = loadstring(game:HttpGet("https://raw.githubusercontent.com/dawid-scripts/Fluent/master/Addons/SaveManager.lua"))()
+local InterfaceManager = loadstring(game:HttpGet("https://raw.githubusercontent.com/dawid-scripts/Fluent/master/Addons/InterfaceManager.lua"))()
+
+local Window = Fluent:CreateWindow({
+    Title = "HackManHub Game Menu [Freemium/Premium]",
+    SubTitle = "1.0.2",
+    TabWidth = 160,
+    Size = UDim2.fromOffset(580, 460),
+    Acrylic = false, -- The blur may be detectable, setting this to false disables blur entirely
+    Theme = "Dark",
+    MinimizeKey = Enum.KeyCode.LeftControl -- Used when theres no MinimizeKeybind
+})
+
+--Fluent provides Lucide Icons https://lucide.dev/icons/ for the tabs, icons are optional
+local Tabs = {
+    Main = Window:AddTab({ Title = "Statview Prison", Icon = "columns-4" }),
+	Game1 = Window:AddTab({ Title = "Arsenal", Icon = "gamepad-2" }),
+	Game2 = Window:AddTab({ Title = "Murderers VS Sheriffs", Icon = "gamepad-2" }),
+	Game3 = Window:AddTab({ Title = "99 Nights in the Forest", Icon = "gamepad-2" }),
+	Game4 = Window:AddTab({ Title = "Grow A Garden", Icon = "gamepad-2" }),
+	Game5 = Window:AddTab({ Title = "Steal A Brainrot | BETA", Icon = "gamepad-2" }),
+}
+
+local Options = Fluent.Options
+
+do
+    Fluent:Notify({
+        Title = "HackManHub Game Menu",
+        Content = "Games Loaded",
+        SubContent = "", -- Optional
+        Duration = 5 -- Set to nil to make the notification not disappear
+    })
+
+end
+
+Tabs.Main:AddParagraph({
+        Title = "Working",
+        Content = "This is a Script is freemium/paid. IMPORTANT!"
+    })
+
+
+	    Tabs.Main:AddButton({
+        Title = "Run Script",
+        Description = "Click Here To Run it",
+        Callback = function()
+		
+			loadstring(game:HttpGet("https://raw.githubusercontent.com/alieegemn/statviewguyme/refs/heads/main/v2"))()
+        end
+    })
+
+	Tabs.Game1:AddParagraph({
+        Title = "This is Script is active on Freemium/Premium",
+        Content = "This is Script is active"
+    })
+
+
+	Tabs.Game2:AddParagraph({
+        Title = "This is Script is active on Freemium/Premium",
+        Content = "This is Script is active"
+    })
+
+	    Tabs.Game2:AddButton({
+        Title = "Run Script",
+        Description = "Click Here To Run it",
+        Callback = function()
+			loadstring(game:HttpGet("https://raw.githubusercontent.com/alieegemn/yeahscret/refs/heads/main/mvs.txt"))()
+        end
+    })
+
+	    Tabs.Game1:AddButton({
+        Title = "Run Script",
+        Description = "Click Here To Run it",
+        Callback = function()
+		
+			loadstring(game:HttpGet("https://raw.githubusercontent.com/alieegemn/yeahscret/refs/heads/main/arsenalalstversion"))()
+        end
+    })
+
+
+
+		Tabs.Game3:AddParagraph({
+        Title = "This is Script is active on Freemium/Premium",
+        Content = "Click Run it"
+    })
+
+
+	    Tabs.Game3:AddButton({
+        Title = "Run Script",
+        Description = "Click Here To Run it",
+        Callback = function()
+		
+			loadstring(game:HttpGet("https://raw.githubusercontent.com/alieegemn/yeahscret/refs/heads/main/99nightof.txt"))()
+        end
+    })
+
+
+		Tabs.Game4:AddParagraph({
+        Title = "This is Script is active on Freemium/Premium",
+        Content = "Click Run it"
+    })
+
+
+	    Tabs.Game4:AddButton({
+        Title = "Run Script",
+        Description = "Click Here To Run it",
+        Callback = function()
+		
+			loadstring(game:HttpGet("https://raw.githubusercontent.com/alieegemn/yeahscret/refs/heads/main/gagscriptopcool.txt"))()
+        end
+    })
+
+		Tabs.Game5:AddParagraph({
+        Title = "This is Script is active on Freemium/Premium",
+        Content = "Click Run it"
+    })
+
+
+	    Tabs.Game5:AddButton({
+        Title = "Run Script",
+        Description = "Click Here To Run it",
+        Callback = function()
+		
+			loadstring(game:HttpGet("https://raw.githubusercontent.com/alieegemn/yeahscret/refs/heads/main/stbrainrot.txt"))()
+        end
+    })
+
+
