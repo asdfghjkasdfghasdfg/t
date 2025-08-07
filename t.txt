@@ -1,0 +1,192 @@
+
+
+local Players = game:GetService("Players")
+local Player = Players.LocalPlayer
+local PlayerGui = Player:WaitForChild("PlayerGui")
+local StarterGui = game:GetService("StarterGui")
+
+-- CONFIGURATION
+local Identifier = "hackmanhubreal" -- Replace with your Panda Dev service identifier
+
+-- Validate key by calling the validation URL with HttpGet
+local function ValidateKey(key, serviceId, hwid)
+    local validationUrl = "https://pandadevelopment.net/v2_validation?key=" .. tostring(key) .. "&service=" .. tostring(serviceId) .. "&hwid=" .. tostring(hwid)
+    local success, responseBody = pcall(function()
+        return game:HttpGet(validationUrl)
+    end)
+    if success and responseBody then
+        local successDecode, jsonData = pcall(function()
+            return game:GetService("HttpService"):JSONDecode(responseBody)
+        end)
+        if successDecode and jsonData then
+            if jsonData["V2_Authentication"] == "success" then
+                return true, "Authenticated"
+            else
+                local reason = jsonData["reason"] or "Unknown reason"
+                return false, "Authentication failed: " .. reason
+            end
+        else
+            return false, "JSON decode error"
+        end
+    else
+        return false, "Your Executor Is Weak Goto Discord and check supported ones"
+    end
+end
+
+local function GetKeyLink(serviceId, hwid)
+    return "https://pandadevelopment.net/getkey?service=" .. tostring(serviceId) .. "&hwid=" .. tostring(hwid)
+end
+
+-- Create the GUI
+local function CreateValidationGUI()
+    local screenGui = Instance.new("ScreenGui")
+    screenGui.Name = "Ov25_KeyValidationGUI"
+    screenGui.ResetOnSpawn = false
+    screenGui.Parent = PlayerGui
+
+    local frame = Instance.new("Frame", screenGui)
+    frame.Size = UDim2.new(0, 400, 0, 210) -- Increased height for close button space
+    frame.Position = UDim2.new(0.5, -200, 0.5, -105)
+    frame.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+    frame.BorderSizePixel = 0
+    frame.AnchorPoint = Vector2.new(0.5, 0.5)
+    frame.Draggable = true
+    frame.Active = true
+
+
+    local uicorner = Instance.new("UICorner", frame)
+    uicorner.CornerRadius = UDim.new(0, 10)
+
+    -- Close button top right
+    local closeButton = Instance.new("TextButton", frame)
+    closeButton.Size = UDim2.new(0, 30, 0, 30)
+    closeButton.Position = UDim2.new(1, -35, 0, 5)
+    closeButton.BackgroundColor3 = Color3.fromRGB(255, 50, 50)
+    closeButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+    closeButton.Font = Enum.Font.GothamBold
+    closeButton.TextSize = 22
+    closeButton.Text = "X"
+    closeButton.AutoButtonColor = true
+    closeButton.Name = "CloseButton"
+
+    closeButton.MouseButton1Click:Connect(function()
+        screenGui:Destroy()
+    end)
+
+    local title = Instance.new("TextLabel", frame)
+    title.Size = UDim2.new(1, -50, 0, 30) -- Adjust width to leave space for close button
+    title.Position = UDim2.new(0, 10, 0, 5)
+    title.BackgroundTransparency = 1
+    title.Text = "HackManHub Key System"
+    title.Font = Enum.Font.GothamBold
+    title.TextSize = 22
+    title.TextColor3 = Color3.fromRGB(255, 255, 255)
+    title.TextScaled = false
+    title.TextXAlignment = Enum.TextXAlignment.Left
+
+    local linkLabel = Instance.new("TextLabel", frame)
+    linkLabel.Size = UDim2.new(1, -20, 0, 30)
+    linkLabel.Position = UDim2.new(0, 10, 0, 40)
+    linkLabel.BackgroundTransparency = 1
+    linkLabel.TextColor3 = Color3.fromRGB(120, 180, 255)
+    linkLabel.TextWrapped = true
+    linkLabel.TextXAlignment = Enum.TextXAlignment.Left
+    linkLabel.Font = Enum.Font.Gotham
+    linkLabel.TextSize = 14
+
+    local userHWID = tostring(Player.UserId)
+    local keyLink = GetKeyLink(Identifier, userHWID)
+    linkLabel.Text = "Click Copy Key Link To Get Key | hackmanhub.pages.dev"
+
+    -- COPY BUTTON
+    local copyBtn = Instance.new("TextButton", frame)
+    copyBtn.Size = UDim2.new(1, -20, 0, 30)
+    copyBtn.Position = UDim2.new(0, 10, 0, 75)
+    copyBtn.BackgroundColor3 = Color3.fromRGB(0, 170, 255)
+    copyBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
+    copyBtn.Font = Enum.Font.GothamBold
+    copyBtn.TextSize = 16
+    copyBtn.Text = "Copy Key Link"
+
+    local copyBtnCorner = Instance.new("UICorner", copyBtn)
+    copyBtnCorner.CornerRadius = UDim.new(0, 6)
+
+    copyBtn.MouseButton1Click:Connect(function()
+        if setclipboard then
+            setclipboard(keyLink)
+            print("Key link copied to clipboard!")
+            
+StarterGui:SetCore("SendNotification", {
+    Title = "HackManHub Key System";
+    Text = "Key link copied to clipboard!";
+    Duration = 5; -- seconds
+})
+        else
+            print("setclipboard not available.")
+        end
+    end)
+
+    local keyBox = Instance.new("TextBox", frame)
+    keyBox.Size = UDim2.new(1, -20, 0, 30)
+    keyBox.Position = UDim2.new(0, 10, 0, 110)
+    keyBox.PlaceholderText = "Paste your key here..."
+    keyBox.ClearTextOnFocus = false
+    keyBox.Text = ""
+    keyBox.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+    keyBox.TextColor3 = Color3.fromRGB(255, 255, 255)
+    keyBox.Font = Enum.Font.Gotham
+    keyBox.TextSize = 18
+
+    local keyBoxCorner = Instance.new("UICorner", keyBox)
+    keyBoxCorner.CornerRadius = UDim.new(0, 6)
+
+    local statusLabel = Instance.new("TextLabel", frame)
+    statusLabel.Size = UDim2.new(1, -20, 0, 30)
+    statusLabel.Position = UDim2.new(0, 10, 0, 150)
+    statusLabel.BackgroundTransparency = 1
+    statusLabel.Text = ""
+    statusLabel.TextColor3 = Color3.fromRGB(255, 100, 100)
+    statusLabel.Font = Enum.Font.Gotham
+    statusLabel.TextSize = 16
+
+    local submitBtn = Instance.new("TextButton", frame)
+    submitBtn.Size = UDim2.new(1, -20, 0, 30)
+    submitBtn.Position = UDim2.new(0, 10, 0, 180)
+    submitBtn.BackgroundColor3 = Color3.fromRGB(0, 170, 255)
+    submitBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
+    submitBtn.Font = Enum.Font.GothamBold
+    submitBtn.TextSize = 18
+    submitBtn.Text = "Check Key"
+    submitBtn.AutoButtonColor = true
+
+    local submitBtnCorner = Instance.new("UICorner", submitBtn)
+    submitBtnCorner.CornerRadius = UDim.new(0, 6)
+
+    submitBtn.MouseButton1Click:Connect(function()
+        local userKey = keyBox.Text
+        if userKey == "" then
+            statusLabel.TextColor3 = Color3.fromRGB(255, 100, 100)
+            statusLabel.Text = "❌ Please enter a key!"
+            return
+        end
+
+        statusLabel.TextColor3 = Color3.fromRGB(255, 255, 100)
+        statusLabel.Text = "🔍 Validating..."
+
+        local validated, message = ValidateKey(userKey, Identifier, userHWID)
+
+        if validated then
+            statusLabel.TextColor3 = Color3.fromRGB(100, 255, 100)
+            statusLabel.Text = "✅ Key valid! Welcome."
+            wait(1)
+            screenGui:Destroy()
+            -- Your main script here
+            loadstring(game:HttpGet("https://raw.githubusercontent.com/hackmanhub-colab/t/refs/heads/main/m.txt"))()
+        else
+            statusLabel.TextColor3 = Color3.fromRGB(255, 100, 100)
+            statusLabel.Text = "❌ Invalid key: " .. message
+        end
+    end)
+end
+
+CreateValidationGUI()
