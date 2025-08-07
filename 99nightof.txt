@@ -1,0 +1,285 @@
+repeat task.wait() until game:IsLoaded()
+repeat task.wait() until game.Players.LocalPlayer:FindFirstChild("PlayerGui")
+
+-- Load external functions
+for _, url in ipairs({
+    "https://raw.githubusercontent.com/Lucasggk/99Nights/main/Functions/Bring.lua",
+    "https://raw.githubusercontent.com/Lucasggk/99Nights/main/Functions/Bringc.lua",
+    "https://raw.githubusercontent.com/Lucasggk/99Nights/main/Functions/Esp.lua",
+    "https://raw.githubusercontent.com/Lucasggk/99Nights/main/Functions/No%20void.lua"
+}) do
+    loadstring(game:HttpGet(url, true))()
+end
+
+-- Load Fluent
+local Fluent = loadstring(game:HttpGet("https://github.com/dawid-scripts/Fluent/releases/latest/download/main.lua"))()
+local player = game.Players.LocalPlayer
+
+local Window = Fluent:CreateWindow({
+    Title = "99 Nights | Beta",
+    SubTitle = " by HackManHub",
+    TabWidth = 160,
+    Size = UDim2.fromOffset(600, 380),
+    Acrylic = false,
+    Theme = "Dark",
+    Center = true,
+    IsDraggable = true,
+    Keybind = Enum.KeyCode.LeftControl
+})
+
+-- Add Tabs
+local tabUser     = Window:AddTab({ Title = "User",     Icon = "user" })
+local tabCombat   = Window:AddTab({ Title = "Combat",   Icon = "sword" })
+local tabTeleport = Window:AddTab({ Title = "Teleport", Icon = "map" })
+local tabBring    = Window:AddTab({ Title = "Bring",    Icon = "gift" })
+local tabESP      = Window:AddTab({ Title = "ESP",      Icon = "eye" })
+local tabSurvive  = Window:AddTab({ Title = "Survival", Icon = "leaf" })
+
+--------------------------------------------------------------------
+-- USER TAB: Speed, Jump, Fog, Infinite Jump
+--------------------------------------------------------------------
+tabUser:AddButton({
+    Title = "Toggle Speed (30/100)",
+    Description = "Click to toggle walkspeed between 30 and 100",
+    Callback = function()
+        local humanoid = player.Character:WaitForChild("Humanoid")
+        humanoid.WalkSpeed = humanoid.WalkSpeed == 30 and 100 or 30
+    end
+})
+
+tabUser:AddToggle("InfJump", {
+    Title = "Infinite Jump",
+    Default = false,
+    Callback = function(state)
+        if state then
+            _G.infJumpConn = game:GetService("UserInputService").JumpRequest:Connect(function()
+                local h = player.Character and player.Character:FindFirstChildWhichIsA("Humanoid")
+                if h then h:ChangeState(Enum.HumanoidStateType.Jumping) end
+            end)
+        elseif _G.infJumpConn then
+            _G.infJumpConn:Disconnect()
+            _G.infJumpConn = nil
+        end
+    end
+})
+
+tabUser:AddToggle("FogToggle", {
+    Title = "Remove Fog",
+    Default = false,
+    Callback = function(state)
+        local lighting = game:GetService("Lighting")
+        if state then
+            lighting.FogStart = 1e10
+            lighting.FogEnd = 1e10
+            lighting.FogColor = Color3.new(1, 1, 1)
+        else
+            lighting.FogStart = 0
+            lighting.FogEnd = 1000
+            lighting.FogColor = Color3.fromRGB(191, 191, 191)
+        end
+    end
+})
+
+--------------------------------------------------------------------
+-- COMBAT TAB: Kill Aura (Auto attack)
+--------------------------------------------------------------------
+tabCombat:AddToggle("KillAura", {
+    Title = "Kill Aura",
+    Description = "Automatically attack nearest NPC with melee weapon",
+    Default = false,
+    Callback = function(enabled)
+        local rs = game:GetService("RunService")
+        local replicated = game:GetService("ReplicatedStorage")
+        local damageEvent = replicated:WaitForChild("RemoteEvents"):FindFirstChild("ToolDamageObject")
+        local meleeWeapons = {
+            ["Old Axe"] = true, ["Good Axe"] = true,
+            ["Strong Axe"] = true, ["Spear"] = true,
+            ["Katana"] = true, ["Morningstar"] = true,
+            ["Laser Sword"] = true
+        }
+
+        if enabled then
+            _G.killaura = rs.RenderStepped:Connect(function()
+                local char = workspace:FindFirstChild(player.Name)
+                if not char then return end
+                local equipped = char:GetAttribute("Equipped")
+                if not equipped or not meleeWeapons[equipped] then return end
+                local target = nil
+                for _, obj in ipairs(workspace:FindFirstChild("Characters"):GetChildren()) do
+                    if obj ~= char and obj:FindFirstChild("HumanoidRootPart") then
+                        target = obj
+                        break
+                    end
+                end
+                if target then
+                    local inv = player:FindFirstChild("Inventory")
+                    local tool = inv and inv:FindFirstChild(equipped)
+                    if tool then
+                        damageEvent:InvokeServer(target, tool, "2_" .. player.UserId, char.HumanoidRootPart.CFrame)
+                    end
+                end
+            end)
+        else
+            if _G.killaura then _G.killaura:Disconnect() _G.killaura = nil end
+        end
+    end
+})
+
+--------------------------------------------------------------------
+-- TELEPORT TAB: Center, Disco, Save Custom
+--------------------------------------------------------------------
+tabTeleport:AddButton({
+    Title = "Teleport to Center",
+    Callback = function()
+        --[[
+	WARNING: Heads up! This script has not been verified by ScriptBlox. Use at your own risk!
+]]
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-1.0527448654174805, 3.999999761581421, 9.033843994140625)
+    end
+})
+
+tabTeleport:AddButton({
+    Title = "Teleport to UFO",
+    Callback = function()
+        local alien = workspace.Items:FindFirstChild("Alien Chest")
+        if alien then player.Character.HumanoidRootPart.CFrame = alien.Main.CFrame + Vector3.new(0, 10, 0) end
+    end
+})
+
+--------------------------------------------------------------------
+-- BRING TAB: Item Dropdown
+--------------------------------------------------------------------
+local items = {
+    "Cake", "Berry", "Bandage", "Carrot", "Bolt", "Chair", "Coal", "Coin Stack",
+    "Fuel Canister", "MedKit", "Old Car Engine", "Revolver", "Rifle", "Sheet Metal"
+}
+local selected = items[1]
+
+local dropdown = tabBring:AddDropdown("BringItem", {
+    Title = "Select item to bring",
+    Values = items,
+    Multi = false,
+    Default = selected
+})
+
+dropdown:OnChanged(function(value) selected = value end)
+
+tabBring:AddButton({
+    Title = "Bring selected item",
+    Callback = function()
+        local fnMap = {
+            ["Cake"] = bringCake,
+            ["Berry"] = bringBerry,
+            ["Bandage"] = bringBandage,
+            ["Carrot"] = bringCarrot,
+            ["Bolt"] = bringBolt,
+            ["Chair"] = bringChair,
+            ["Coal"] = bringCoal,
+            ["Coin Stack"] = bringCoin,
+            ["Fuel Canister"] = bringFuel,
+            ["MedKit"] = bringMedKit,
+            ["Old Car Engine"] = bringEngine,
+            ["Revolver"] = bringRevolver,
+            ["Rifle"] = bringRifle,
+            ["Sheet Metal"] = bringSheetMetal
+        }
+        if fnMap[selected] then fnMap[selected]() end
+    end
+})
+
+--------------------------------------------------------------------
+-- ESP TAB: Mobs/Items
+--------------------------------------------------------------------
+local mobs = { "Bear", "Wolf", "Bunny", "Cultist", "Alien" }
+local loot = { "Berry", "Bolt", "Cake", "Chair", "Coin Stack", "Fuel Canister" }
+
+local mobSelect = {}
+local lootSelect = {}
+
+local mobDrop = tabESP:AddDropdown("ESP Mobs", {
+    Title = "Select Mobs",
+    Values = mobs,
+    Multi = true,
+    Default = {}
+})
+
+local lootDrop = tabESP:AddDropdown("ESP Loot", {
+    Title = "Select Loot",
+    Values = loot,
+    Multi = true,
+    Default = {}
+})
+
+mobDrop:OnChanged(function(val)
+    table.clear(mobSelect)
+    for mob, v in pairs(val) do if v then table.insert(mobSelect, mob) end end
+end)
+
+lootDrop:OnChanged(function(val)
+    table.clear(lootSelect)
+    for item, v in pairs(val) do if v then table.insert(lootSelect, item) end end
+end)
+
+tabESP:AddButton({
+    Title = "Add ESP",
+    Callback = function()
+        for _, mob in ipairs(mobSelect) do Aesp(mob, "mob") end
+        for _, item in ipairs(lootSelect) do Aesp(item, "item") end
+    end
+})
+
+tabESP:AddButton({
+    Title = "Remove ESP",
+    Callback = function()
+        for _, mob in ipairs(mobSelect) do Desp(mob, "mob") end
+        for _, item in ipairs(lootSelect) do Desp(item, "item") end
+        table.clear(mobSelect)
+        table.clear(lootSelect)
+        mobDrop:SetValue({})
+        lootDrop:SetValue({})
+    end
+})
+
+--------------------------------------------------------------------
+-- SURVIVAL TAB: Auto Feed
+--------------------------------------------------------------------
+local foods = { "Berry", "Carrot", "Cake", "Cooked Morsel", "Cooked Steak" }
+local selectedFood = foods[1]
+local feedThreshold = 75
+local autoFeedEnabled = false
+
+tabSurvive:AddDropdown("FoodDropdown", {
+    Title = "Food to Auto Feed",
+    Values = foods,
+    Multi = false,
+    Default = selectedFood,
+    Callback = function(v) selectedFood = v end
+})
+
+tabSurvive:AddInput("HungerInput", {
+    Title = "Feed When Hunger Below",
+    Default = 75,
+    Numeric = true,
+    Callback = function(v) feedThreshold = tonumber(v) or 75 end
+})
+
+tabSurvive:AddToggle("AutoFeed", {
+    Title = "Enable Auto Feed",
+    Callback = function(state)
+        autoFeedEnabled = state
+        if state then
+            task.spawn(function()
+                while autoFeedEnabled do
+                    local h = player.PlayerGui:FindFirstChild("Interface")
+                    local percent = h and h:FindFirstChild("StatBars") and h.StatBars.HungerBar.Bar.Size.X.Scale or 1
+                    local value = math.floor(percent * 100)
+                    if value <= feedThreshold then
+                        feed(selectedFood)
+                    end
+                    task.wait(0.5)
+                end
+            end)
+        end
+    end
+})
+
