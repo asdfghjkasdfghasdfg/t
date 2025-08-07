@@ -45,7 +45,7 @@ Tabs.Main:AddParagraph({
         Description = "Click Here To Run it",
         Callback = function()
 		
-			loadstring(game:HttpGet("https://raw.githubusercontent.com/alieegemn/statviewguyme/refs/heads/main/v2"))()
+			loadstring(game:HttpGet("https://raw.githubusercontent.com/hackmanhub-colab/t/refs/heads/main/v58252.txt"))()
         end
     })
 
@@ -64,7 +64,7 @@ Tabs.Main:AddParagraph({
         Title = "Run Script",
         Description = "Click Here To Run it",
         Callback = function()
-			loadstring(game:HttpGet("https://raw.githubusercontent.com/alieegemn/yeahscret/refs/heads/main/mvs.txt"))()
+			loadstring(game:HttpGet("https://raw.githubusercontent.com/hackmanhub-colab/t/refs/heads/main/mvs.txt"))()
         end
     })
 
@@ -73,7 +73,7 @@ Tabs.Main:AddParagraph({
         Description = "Click Here To Run it",
         Callback = function()
 		
-			loadstring(game:HttpGet("https://raw.githubusercontent.com/alieegemn/yeahscret/refs/heads/main/arsenalalstversion"))()
+			loadstring(game:HttpGet("https://raw.githubusercontent.com/hackmanhub-colab/t/refs/heads/main/arsenalalstversion.txt"))()
         end
     })
 
@@ -90,7 +90,7 @@ Tabs.Main:AddParagraph({
         Description = "Click Here To Run it",
         Callback = function()
 		
-			loadstring(game:HttpGet("https://raw.githubusercontent.com/alieegemn/yeahscret/refs/heads/main/99nightof.txt"))()
+			loadstring(game:HttpGet("https://raw.githubusercontent.com/hackmanhub-colab/t/refs/heads/main/99nightogasf.txt"))()
         end
     })
 
@@ -106,7 +106,7 @@ Tabs.Main:AddParagraph({
         Description = "Click Here To Run it",
         Callback = function()
 		
-			loadstring(game:HttpGet("https://raw.githubusercontent.com/alieegemn/yeahscret/refs/heads/main/gagscriptopcool.txt"))()
+			loadstring(game:HttpGet("https://raw.githubusercontent.com/hackmanhub-colab/t/refs/heads/main/gagscriptopcool.txt"))()
         end
     })
 
@@ -121,7 +121,7 @@ Tabs.Main:AddParagraph({
         Description = "Click Here To Run it",
         Callback = function()
 		
-			loadstring(game:HttpGet("https://raw.githubusercontent.com/alieegemn/yeahscret/refs/heads/main/stbrainrot.txt"))()
+			loadstring(game:HttpGet("https://raw.githubusercontent.com/hackmanhub-colab/t/refs/heads/main/stbrainrot.txt"))()
         end
     })
 
