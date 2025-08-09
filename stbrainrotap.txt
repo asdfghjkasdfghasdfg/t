@@ -1,0 +1,111 @@
+-- GUI Setup
+local Players = game:GetService("Players")
+local player = Players.LocalPlayer
+local PlayerGui = player:WaitForChild("PlayerGui")
+
+local gui = Instance.new("ScreenGui", PlayerGui)
+gui.Name = "FloatButtonGui"
+
+local button = Instance.new("TextButton", gui)
+button.Size = UDim2.new(0, 150, 0, 50)
+button.Position = UDim2.new(0, 200, 0, 200)
+button.Text = "Fly to Base"
+button.BackgroundColor3 = Color3.fromRGB(0, 100, 255)
+button.TextColor3 = Color3.new(1, 1, 1)
+button.Font = Enum.Font.GothamBold
+button.TextSize = 20
+button.Draggable = true
+button.Active = true
+button.ResetOnSpawn = true
+
+-- CFrame path list (now with 9 points)
+local pathCFrames = {
+    CFrame.new(-473.929230, -6.438952, -102.400635),
+    CFrame.new(-475.933411, -6.338952, 4.670542),
+    CFrame.new(-474.874420, -6.438952, 115.287201),
+    CFrame.new(-475.779602, -6.438952, 217.850861),
+    CFrame.new(-343.108093, -6.439090, 219.407898),
+    CFrame.new(-343.115784, -6.438952, 113.464920),
+    CFrame.new(-344.957367, -6.438951, 7.937891),
+    CFrame.new(-347.927826, -6.438951, 8.617684),
+    CFrame.new(-348.385742, -6.438960, -100.441620)
+}
+
+-- Function to fly to each CFrame
+local function flyThroughCFrames()
+    local char = player.Character or player.CharacterAdded:Wait()
+    local root = char:WaitForChild("HumanoidRootPart")
+
+    local speed = 50
+    local bodyVelocity = Instance.new("BodyVelocity")
+    bodyVelocity.Name = "FlyMover"
+    bodyVelocity.MaxForce = Vector3.new(1e5, 1e5, 1e5)
+    bodyVelocity.Parent = root
+
+    local i = 1
+    while i <= #pathCFrames do
+        local target = pathCFrames[i].Position
+        local direction = (target - root.Position).Unit
+        bodyVelocity.Velocity = direction * speed
+
+        -- Wait until we get close to the target point
+        repeat task.wait() until (root.Position - target).Magnitude < 5
+
+        i += 1
+    end
+
+    bodyVelocity:Destroy()
+end
+
+button.MouseButton1Click:Connect(flyThroughCFrames)
+
+
+	-- Create GUI Button
+local Players = game:GetService("Players")
+local player = Players.LocalPlayer
+local PlayerGui = player:WaitForChild("PlayerGui")
+
+local gui = Instance.new("ScreenGui")
+gui.Name = "FloatButtonGui"
+gui.Parent = PlayerGui
+
+local button = Instance.new("TextButton")
+button.Size = UDim2.new(0, 150, 0, 50)
+button.Position = UDim2.new(0, 200, 0, 200)
+button.Text = "Fly Forward"
+button.BackgroundColor3 = Color3.fromRGB(0, 100, 255)
+button.TextColor3 = Color3.new(1, 1, 1)
+button.Font = Enum.Font.GothamBold
+button.TextSize = 20
+button.Parent = gui
+button.Draggable = true
+button.Active = true
+button.ResetOnSpawn = true
+
+-- Main logic
+local function floatForward()
+    local char = player.Character or player.CharacterAdded:Wait()
+    local root = char:WaitForChild("HumanoidRootPart")
+
+    -- Step 1: Teleport up
+    root.CFrame = root.CFrame + Vector3.new(0, 15, 0)
+
+    -- Step 2: Apply forward force
+    local bodyVelocity = Instance.new("BodyVelocity")
+    bodyVelocity.Name = "TempFloatForce"
+    bodyVelocity.MaxForce = Vector3.new(1e5, 1e5, 1e5)
+    bodyVelocity.Velocity = root.CFrame.LookVector * 50
+    bodyVelocity.Parent = root
+
+    -- Step 3: Auto remove float after delay
+    task.delay(1.5, function()
+        if bodyVelocity then
+            bodyVelocity:Destroy()
+        end
+    end)
+end
+
+button.MouseButton1Click:Connect(floatForward)
+    end
+
+
