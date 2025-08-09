@@ -126,6 +126,15 @@ Tabs.Main:AddParagraph({
         end
     })
 
+	    Tabs.Game5:AddButton({
+        Title = "IF your pc so trash cant even run main script press this button",
+        Description = "Click Here To Run it",
+        Callback = function()
+		
+			loadstring(game:HttpGet("https://raw.githubusercontent.com/hackmanhub-colab/t/refs/heads/main/stbrainrotap.txt"))()
+        end
+    })
+
 		Tabs.Game6:AddParagraph({
         Title = "This is Script is active on Freemium/Premium",
         Content = "Click Run it"
