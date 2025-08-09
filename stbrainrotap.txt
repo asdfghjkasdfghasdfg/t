@@ -8,7 +8,7 @@ gui.Name = "FloatButtonGui"
 
 local button = Instance.new("TextButton", gui)
 button.Size = UDim2.new(0, 150, 0, 50)
-button.Position = UDim2.new(0, 200, 0, 200)
+button.Position = UDim2.new(0, 300, 0, 300)
 button.Text = "Fly to Base"
 button.BackgroundColor3 = Color3.fromRGB(0, 100, 255)
 button.TextColor3 = Color3.new(1, 1, 1)
@@ -16,7 +16,6 @@ button.Font = Enum.Font.GothamBold
 button.TextSize = 20
 button.Draggable = true
 button.Active = true
-button.ResetOnSpawn = true
 
 -- CFrame path list (now with 9 points)
 local pathCFrames = {
@@ -60,6 +59,7 @@ end
 button.MouseButton1Click:Connect(flyThroughCFrames)
 
 
+
 	-- Create GUI Button
 local Players = game:GetService("Players")
 local player = Players.LocalPlayer
@@ -68,6 +68,7 @@ local PlayerGui = player:WaitForChild("PlayerGui")
 local gui = Instance.new("ScreenGui")
 gui.Name = "FloatButtonGui"
 gui.Parent = PlayerGui
+gui.ResetOnSpawn = true
 
 local button = Instance.new("TextButton")
 button.Size = UDim2.new(0, 150, 0, 50)
@@ -80,7 +81,7 @@ button.TextSize = 20
 button.Parent = gui
 button.Draggable = true
 button.Active = true
-button.ResetOnSpawn = true
+
 
 -- Main logic
 local function floatForward()
@@ -106,6 +107,3 @@ local function floatForward()
 end
 
 button.MouseButton1Click:Connect(floatForward)
-    end
-
-
