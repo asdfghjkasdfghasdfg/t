@@ -19,7 +19,7 @@ local Tabs = {
 	Game2 = Window:AddTab({ Title = "Murderers VS Sheriffs", Icon = "gamepad-2" }),
 	Game3 = Window:AddTab({ Title = "99 Nights in the Forest", Icon = "gamepad-2" }),
 	Game4 = Window:AddTab({ Title = "Grow A Garden", Icon = "gamepad-2" }),
-	Game5 = Window:AddTab({ Title = "Steal A Brainrot", Icon = "gamepad-2" }),
+	Game5 = Window:AddTab({ Title = "Steal A Brainrot | patched a bit", Icon = "gamepad-2" }),
 	Game6 = Window:AddTab({ Title = "Hypershot (Gunfight) | V1", Icon = "gamepad-2" }),
 }
 
