@@ -1,12 +1,6 @@
 --===[ Ov2.5 Client Key Validation V3.1 Beta ]===--
 
-local StarterGui = game:GetService("StarterGui")
 
-StarterGui:SetCore("SendNotification", {
-    Title = "HackManHub Key System";
-    Text = "credits to me (ryan) and VincenzoXIII for gui";
-    Duration = 5; -- seconds
-})
 
 local Players = game:GetService("Players")
 local Player = Players.LocalPlayer
