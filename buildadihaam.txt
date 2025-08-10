@@ -1308,25 +1308,4 @@ if request then
         end
     })
 end
-print("x:x:x")
---[[
 
--- TODO:TODO:TODO:TODO:TODO:TODO:TODO:TODO:TODO:TODO:TODO:TODO:TODO:TODO:
-
--- TODO:
-- more efficient
-- loading...
-- keysystem better
-- helo world
-- anti afk v2
-- antiafk improvement
-- reinitalize after rejoin
-- auto kill other planes
-
-
-
-
--- TODO:TODO:TODO:TODO:TODO:TODO:TODO:TODO:TODO:TODO:TODO:TODO:TODO:TODO:
-
-
-]]
