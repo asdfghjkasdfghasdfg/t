@@ -43,6 +43,7 @@ local function CreateValidationGUI()
     screenGui.Name = "Ov25_KeyValidationGUI"
     screenGui.ResetOnSpawn = false
     screenGui.Parent = PlayerGui
+    screenGui.DisplayOrder = 9999
 
     local frame = Instance.new("Frame", screenGui)
     frame.Size = UDim2.new(0, 400, 0, 210) -- Increased height for close button space
