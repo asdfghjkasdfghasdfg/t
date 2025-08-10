@@ -137,7 +137,7 @@ Tabs.Main:AddParagraph({
     })
 
 		Tabs.Game6:AddParagraph({
-        Title = "This is Script is active on Freemium/Premium",
+        Title = "FIXING ERRORS PLZ WAIT	JOIN DC FOR ACTIVE NOTIFICATION 		This is Script is active on Freemium/Premium",
         Content = "Click Run it"
     })
 
@@ -147,7 +147,7 @@ Tabs.Main:AddParagraph({
         Description = "Click Here To Run it",
         Callback = function()
 		
-loadstring(game:HttpGet("https://raw.githubusercontent.com/hackmanhub-colab/t/refs/heads/main/hpers%C4%B1crng"))()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/hackmanhub-colab/t/refs/heads/main/hpershot"))()
 
         end
     })
