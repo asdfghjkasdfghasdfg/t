@@ -22,6 +22,7 @@ local Tabs = {
 	Game5 = Window:AddTab({ Title = "Steal A Brainrot | patched a bit", Icon = "gamepad-2" }),
 	Game6 = Window:AddTab({ Title = "Hypershot (Gunfight) | V1", Icon = "gamepad-2" }),
 	Game7 = Window:AddTab({ Title = "Blade Ball", Icon = "gamepad-2" }),
+	Game8 = Window:AddTab({ Title = "Build A Plane", Icon = "gamepad-2" }),
 }
 
 local Options = Fluent.Options
@@ -155,6 +156,23 @@ Tabs.Main:AddParagraph({
         Callback = function()
 		
 		loadstring(game:HttpGet("https://raw.githubusercontent.com/hackmanhub-colab/t/refs/heads/main/cooolballs.txt"))()
+
+        end
+    })
+
+
+		Tabs.Game8:AddParagraph({
+        Title = "This is Script is active on Freemium/Premium",
+        Content = "Click Run it"
+    })
+
+
+	    Tabs.Game8:AddButton({
+        Title = "Run Script",
+        Description = "Click Here To Run it",
+        Callback = function()
+		
+		loadstring(game:HttpGet("https://raw.githubusercontent.com/hackmanhub-colab/t/refs/heads/main/buildadihaam.txt"))()
 
         end
     })
