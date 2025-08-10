@@ -116,12 +116,7 @@ local function CreateValidationGUI()
         if setclipboard then
             setclipboard(keyLink)
             print("Key link copied to clipboard!")
-            
-StarterGui:SetCore("SendNotification", {
-    Title = "HackManHub Key System";
-    Text = "Key link copied to clipboard!";
-    Duration = 5; -- seconds
-})
+        
         else
             print("setclipboard not available.")
         end
