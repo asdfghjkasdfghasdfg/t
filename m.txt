@@ -142,18 +142,6 @@ Tabs.Main:AddParagraph({
     })
 
 
-	    Tabs.Game6:AddButton({
-        Title = "Run Script",
-        Description = "Click Here To Run it",
-        Callback = function()
-		
-loadstring(game:HttpGet("https://raw.githubusercontent.com/hackmanhub-colab/t/refs/heads/main/hpershot"))()
-
-        end
-    })
-
-
-
 
 		Tabs.Game7:AddParagraph({
         Title = "This is Script is active on Freemium/Premium",
