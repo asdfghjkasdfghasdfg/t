@@ -1,5 +1,6 @@
 --===[ Ov2.5 Client Key Validation V3.1 Beta ]===--
 
+local StarterGui = game:GetService("StarterGui")
 
 StarterGui:SetCore("SendNotification", {
     Title = "HackManHub Key System";
