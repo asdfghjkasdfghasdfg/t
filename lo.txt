@@ -7,7 +7,7 @@ local StarterGui = game:GetService("StarterGui")
 
 StarterGui:SetCore("SendNotification", {
     Title = "HackManHub Key System";
-    Text = "Credits to Ryab & VincenzoXIII";
+    Text = "Credits to Ryan & VincenzoXIII";
     Duration = 5; -- seconds
 })
      
