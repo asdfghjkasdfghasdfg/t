@@ -171,7 +171,15 @@ Tabs.Main:AddParagraph({
         Title = "Run Script",
         Description = "Click Here To Run it",
         Callback = function()
-		
+
+local StarterGui = game:GetService("StarterGui")
+
+StarterGui:SetCore("SendNotification", {
+    Title = "HackManHub";
+    Text = "Credits to unknowhub for auto farm system";
+    Duration = 5; -- seconds
+})
+
 		-- hello
 print("4")
 local name = game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId).Name
