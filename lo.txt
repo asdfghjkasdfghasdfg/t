@@ -5,6 +5,14 @@ local Player = Players.LocalPlayer
 local PlayerGui = Player:WaitForChild("PlayerGui")
 local StarterGui = game:GetService("StarterGui")
 
+StarterGui:SetCore("SendNotification", {
+    Title = "HackManHub Key System";
+    Text = "Credits to Ryab & VincenzoXIII";
+    Duration = 5; -- seconds
+})
+     
+
+
 -- CONFIGURATION
 local Identifier = "hackmanhubf" -- Replace with your Panda Dev service identifier
 
