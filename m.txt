@@ -68,6 +68,15 @@ Tabs.Main:AddParagraph({
         end
     })
 
+	    Tabs.Game5:AddButton({
+        Title = "Run Script For Only Auto Steak",
+        Description = "Click Here To Run it",
+        Callback = function()
+			loadstring(game:HttpGet("https://raw.githubusercontent.com/hackmanhub-colab/t/refs/heads/main/stbrainrotap.txt"))()
+        end
+    })
+
+
 
 
 	Tabs.Game1:AddParagraph({
