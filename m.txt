@@ -14,13 +14,11 @@ local Window = Fluent:CreateWindow({
 
 --Fluent provides Lucide Icons https://lucide.dev/icons/ for the tabs, icons are optional
 local Tabs = {
-    Main = Window:AddTab({ Title = "Statview Prison", Icon = "columns-4" }),
+    Main = Window:AddTab({ Title = "Statview Prison", Icon = "gamepad-2" }),
 	Game1 = Window:AddTab({ Title = "Arsenal", Icon = "gamepad-2" }),
 	Game2 = Window:AddTab({ Title = "Murderers VS Sheriffs", Icon = "gamepad-2" }),
 	Game3 = Window:AddTab({ Title = "99 Nights in the Forest", Icon = "gamepad-2" }),
 	Game4 = Window:AddTab({ Title = "Grow A Garden", Icon = "gamepad-2" }),
-	Game5 = Window:AddTab({ Title = "Steal A Brainrot | patched a bit", Icon = "gamepad-2" }),
-	Game6 = Window:AddTab({ Title = "Hypershot (Gunfight) | V1", Icon = "gamepad-2" }),
 	Game7 = Window:AddTab({ Title = "Blade Ball", Icon = "gamepad-2" }),
 	Game8 = Window:AddTab({ Title = "Build A Plane", Icon = "gamepad-2" }),
 }
@@ -113,34 +111,7 @@ Tabs.Main:AddParagraph({
         end
     })
 
-		Tabs.Game5:AddParagraph({
-        Title = "This is Script is active on Freemium/Premium",
-        Content = "Click Run it"
-    })
 
-
-	    Tabs.Game5:AddButton({
-        Title = "Run Script",
-        Description = "Click Here To Run it",
-        Callback = function()
-		
-			loadstring(game:HttpGet("https://raw.githubusercontent.com/hackmanhub-colab/t/refs/heads/main/stbrainrot.txt"))()
-        end
-    })
-
-	    Tabs.Game5:AddButton({
-        Title = "IF your pc so trash cant even run main script press this button",
-        Description = "Click Here To Run it",
-        Callback = function()
-		
-			loadstring(game:HttpGet("https://raw.githubusercontent.com/hackmanhub-colab/t/refs/heads/main/stbrainrotap.txt"))()
-        end
-    })
-
-		Tabs.Game6:AddParagraph({
-        Title = "FIXING ERRORS PLZ WAIT	JOIN DC FOR ACTIVE NOTIFICATION 		This is Script is active on Freemium/Premium",
-        Content = "Click Run it"
-    })
 
 
 
