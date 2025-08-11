@@ -54,7 +54,7 @@ Tabs.Main:AddParagraph({
 
 
 	Tabs.Game5:AddParagraph({
-        Title = "This is Script is active on Freemium/Premium",
+        Title = "MOBILE VERSION SOON This is Script is active on Freemium/Premium",
         Content = "This is Script is active"
     })
 
@@ -69,7 +69,7 @@ Tabs.Main:AddParagraph({
     })
 
 	    Tabs.Game5:AddButton({
-        Title = "Run Script For Only Auto Steak",
+        Title = "Run Script For Only Auto Steal",
         Description = "Click Here To Run it",
         Callback = function()
 			loadstring(game:HttpGet("https://raw.githubusercontent.com/hackmanhub-colab/t/refs/heads/main/stbrainrotap.txt"))()
