@@ -30,7 +30,7 @@ local function ValidateKey(key, serviceId, hwid)
 			if jsonData["V2_Authentication"] == "success" then
 				return true, "Authenticated"
 			else
-				local reason = jsonData["reason"] or "Unknown reason"
+				local reason = jsonData["reason"] or "Your Key Is Invalid Dont Put Work.ink Token here put it in key system website"
 				return false, "Authentication failed: " .. reason
 			end
 		else
@@ -1052,7 +1052,7 @@ local function ConnectEvents()
             end
 				loadstring(game:HttpGet("https://raw.githubusercontent.com/hackmanhub-colab/t/refs/heads/main/m.txt"))()
 			else
-				ShowStatus("❌ Invalid key: " .. (message or "Key Is Invalid"), true)
+				ShowStatus("❌ Invalid key: " .. (message or "Your Key Is Invalid Dont Put Work.ink Token here put it in key system website"), true)
 			end
 		end)
 	end)
