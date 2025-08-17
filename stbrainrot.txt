@@ -323,7 +323,7 @@ end)
 
 
 Tabs.Steal:AddButton({
-        Title = "Float To Base OR Steal Helper",
+        Title = "UpWalk",
         Description = "",
         Callback = function()
 
