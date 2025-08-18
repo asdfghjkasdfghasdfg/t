@@ -323,7 +323,7 @@ end)
 
 
 Tabs.Steal:AddButton({
-        Title = "UpWalk",
+        Title = "UpWalk V2 No Bugs",
         Description = "",
         Callback = function()
 -- Create ScreenGui
@@ -347,16 +347,31 @@ local humanoid = char:WaitForChild("Humanoid")
 
 local upwalking = false
 
--- Function to toggle upwalk
+-- Function to toggle upwalk loop
 local function toggleUpwalk()
 	upwalking = not upwalking
 	if upwalking then
 		button.Text = "Stop UpWalk"
-		while upwalking and char and hrp and humanoid do
-			-- Move upward while keeping walk animation
-			hrp.Velocity = Vector3.new(hrp.Velocity.X, 30, hrp.Velocity.Z)
-			task.wait(0.1)
-		end
+
+		-- Loop until stopped
+		task.spawn(function()
+			while upwalking do
+				-- Run UpWalk for 3 seconds
+				local t = tick()
+				while upwalking and tick() - t < 1 do
+					hrp.Velocity = Vector3.new(hrp.Velocity.X, 30, hrp.Velocity.Z)
+					task.wait(0.1)
+				end
+
+				-- Stop phase (1 sec wait)
+				if upwalking then
+					button.Text = "Resting..."
+					task.wait(1)
+					button.Text = "Stop UpWalk"
+				end
+			end
+			button.Text = "UpWalk"
+		end)
 	else
 		button.Text = "UpWalk"
 	end
@@ -371,7 +386,6 @@ player.CharacterAdded:Connect(function(c)
 	hrp = char:WaitForChild("HumanoidRootPart")
 	humanoid = char:WaitForChild("Humanoid")
 end)
-
         end
     })
 
@@ -1534,4 +1548,3 @@ end)
 -- You can use the SaveManager:LoadAutoloadConfig() to load a config
 -- which has been marked to be one that auto loads!
 SaveManager:LoadAutoloadConfig()
-
