@@ -8,7 +8,7 @@ local StarterGui = game:GetService("StarterGui")
 StarterGui:SetCore("SendNotification", {
     Title = "HackManHub Key System";
     Text = "KEY SYSTEM HAS BEEN BROKEN UNTIL IT GOT FIXED KEYLESS";
-    Duration = 15; -- seconds
+    Duration = 20; -- seconds
 })
      
 
