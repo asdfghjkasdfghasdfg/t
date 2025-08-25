@@ -91,69 +91,14 @@ local Tabs = {
 }
 local Options = Fluent.Options
 
-local Toggle = Tabs.Player:AddToggle("MyToggle", {
-    Title = "Speed Boost",
-    Description = "You Need Invis Cloak In your inventory!",
-    Default = false,
-    Callback = function(state)
-        task.spawn(function()
-            local Config = {
-                Speed = 72,
-                NormalSpeed = 34,
-            }
 
-            local function SetSpeed(Humanoid, Speed)
-                if Humanoid and Humanoid:FindFirstChild("WalkSpeed") then
-                    Humanoid.WalkSpeed = Speed
-                end
-            end
 
-            local function HookHumanoid(Humanoid)
-                task.spawn(function()
-                    SetSpeed(Humanoid, Config.NormalSpeed)
-                end)
-
-                local function OnPropertyChange(Object, Property, Callback)
-                    Object:GetPropertyChangedSignal(Property):Connect(function()
-                        Callback(Object[Property])
-                    end)
-                end
-
-                OnPropertyChange(Humanoid, "WalkSpeed", function(WalkSpeed)
-                    if WalkSpeed ~= Config.Speed then
-                        SetSpeed(Humanoid, Config.Speed)
-                    end
-                end)
-            end
-
-            local function GetHumanoid()
-                return game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character:FindFirstChild("Humanoid")
-            end
-
-            local Humanoid = GetHumanoid()
-
-            if Humanoid then
-                HookHumanoid(Humanoid)
-            end
-
-            game.Players.LocalPlayer.CharacterAdded:Connect(function(Character)
-                Humanoid = Character:WaitForChild("Humanoid")
-                HookHumanoid(Humanoid)
-            end)
-
-            if state then
-                Config.Speed = 72
-                if Humanoid then
-                    SetSpeed(Humanoid, Config.Speed)
-                end
-            else
-                Config.Speed = Config.NormalSpeed
-                if Humanoid then
-                    SetSpeed(Humanoid, Config.NormalSpeed)
-                end
-            end
-        end)
-    end
+Tabs.Main:AddButton({
+    Title = "Antisteal (OP)",
+    Desc = "Leaves Game When Someone Enters Base",
+    Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/34wefwef/antisteal.github.io/refs/heads/main/ere.lua"))()
+     end
 })
 
 local GodmodeConnection
@@ -388,58 +333,96 @@ player.CharacterAdded:Connect(function(c)
 end)
         end
     })
+local UserInputService = game:GetService("UserInputService")
+local Players = game:GetService("Players")
+local RunService = game:GetService("RunService")
+local LocalPlayer = Players.LocalPlayer
+local infJumpEnabled = false
+local lastJumpTime = 0
+local COOLDOWN = 0.5
+local JUMP_FORCE = 50
+local JUMP_DURATION = 0.2
 
-
-
+local function safeAirJump()
+    if not infJumpEnabled then return end
+    local now = os.clock()
+    if now - lastJumpTime < COOLDOWN then return end
+    local character = LocalPlayer.Character
+    if not character then return end
+    local humanoid = character:FindFirstChildOfClass("Humanoid")
+    local rootPart = character:FindFirstChild("HumanoidRootPart")
+    if not humanoid or not rootPart then return end
+    lastJumpTime = now
+    if rootPart:CanSetNetworkOwnership() then
+        rootPart:SetNetworkOwner(LocalPlayer)
+    end
+    local bodyVelocity = Instance.new("BodyVelocity")
+    bodyVelocity.MaxForce = Vector3.new(0, math.huge, 0)
+    bodyVelocity.Velocity = Vector3.new(0, JUMP_FORCE, 0)
+    bodyVelocity.Parent = rootPart
+    local connection
+    connection = RunService.Heartbeat:Connect(function()
+        if os.clock() - lastJumpTime >= JUMP_DURATION then
+            bodyVelocity:Destroy()
+            if rootPart:CanSetNetworkOwnership() then
+                rootPart:SetNetworkOwner(nil)
+            end
+            connection:Disconnect()
+        end
+    end)
+end
 
 local Toggle = Tabs.Player:AddToggle("MyToggle", {
-    Title = "Infinite Jump",
+    Title = "Infinite Jump V2",
     Description = "Can Jump Infinitely Without a Limit! Just Spam the Spacebar",
     Default = false,
-    Callback = function(state)
-        _G.infinjump = state
-
-        if _G.infinJumpStarted == nil then
-            _G.infinJumpStarted = true
-
-            Fluent:Notify({
-                Title = "HackManHub",
-                Content = "Infinite Jump script is now active!",
-                Duration = 6
-            })
-
-            local plr = game:GetService('Players').LocalPlayer
-            local mouse = plr:GetMouse()
-
-            mouse.KeyDown:Connect(function(key)
-                if _G.infinjump then
-                    if key:byte() == 32 then
-                        local humanoid = plr.Character and plr.Character:FindFirstChildOfClass("Humanoid")
-                        if humanoid then
-                            humanoid:ChangeState("Jumping")
-                            wait()
-                            humanoid:ChangeState("Seated")
-                        end
-                    end
-                end
-            end)
-        end
-
-        if state then
-            Fluent:Notify({
-                Title = "HackManHub",
-                Content = "Infinite Jump Enabled – Jump freely!",
-                Duration = 5
-            })
-        else
-            Fluent:Notify({
-                Title = "HackManHub",
-                Content = "Infinite Jump Disabled.",
-                Duration = 5
-            })
+    Callback = function(Value)
+        infJumpEnabled = Value
+        if Value then
+            UserInputService.JumpRequest:Connect(safeAirJump)
         end
     end
 })
+
+
+
+local speedBoostEnabled = false
+local speedConn = nil
+local DEFAULT_SPEED = 16
+local BOOSTED_SPEED = 50
+
+local Toggle = Tabs.Player:AddToggle("MyToggle", {
+    Title = "Boost Speed",
+    Default = false,
+    Callback = function(Value)
+        speedBoostEnabled = Value
+        if speedConn then
+            speedConn:Disconnect()
+            speedConn = nil
+        end
+        if Value then
+            speedConn = RunService.Heartbeat:Connect(function()
+                if not _G._lastSpeedBoostUpdate or (tick() - _G._lastSpeedBoostUpdate) >= 0.1 then
+                    local character = LocalPlayer.Character
+                    if character then
+                        local humanoid = character:FindFirstChildOfClass("Humanoid")
+                        local rootPart = character:FindFirstChild("HumanoidRootPart")
+                        if humanoid and rootPart and humanoid.MoveDirection.Magnitude > 0 then
+                            local moveDir = humanoid.MoveDirection
+                            rootPart.Velocity = Vector3.new(
+                                moveDir.X * BOOSTED_SPEED,
+                                rootPart.Velocity.Y,
+                                moveDir.Z * BOOSTED_SPEED
+                            )
+                        end
+                    end
+                    _G._lastSpeedBoostUpdate = tick()
+                end
+            end)
+        end
+    end
+})
+
 
 Tabs.Steal:AddButton({
     Title = "Steal Gui patched",
@@ -628,86 +611,198 @@ Tabs.Steal:AddButton({
 })
 
 
-local Toggle = Tabs.Esp:AddToggle("MyToggle", {
-    Title = "Esp Players",
-    Desc = "Esp Players",
-    Icon = "eye",
-    Type = "Checkbox",
-    Default = false,
-    Callback = function(state) 
-        local espEnabled = state
-        local Players = game:GetService("Players")
+local Players = game:GetService("Players")
+local LocalPlayer = Players.LocalPlayer
+local espEnabled = false
+local espUpdateConn = nil
 
-        local function createESP(player)
-            if player == Players.LocalPlayer then return end
+local function addHighlightToCharacter(char)
+    if not char or char == LocalPlayer.Character or char:FindFirstChild("HighlightESP") then return end
+    local highlight = Instance.new("Highlight")
+    highlight.Name = "HighlightESP"
+    highlight.FillTransparency = 0.75
+    highlight.OutlineTransparency = 0.5
+    highlight.FillColor = Color3.new(0, 0, 0)
+    highlight.OutlineColor = Color3.new(1, 1, 1)
+    highlight.Adornee = char
+    highlight.DepthMode = Enum.HighlightDepthMode.AlwaysOnTop
+    highlight.Parent = char
+end
 
-            local character = player.Character or player.CharacterAdded:Wait()
-            if not character then return end
+local function removeHighlightFromCharacter(char)
+    local highlight = char and char:FindFirstChild("HighlightESP")
+    if highlight then
+        highlight:Destroy()
+    end
+end
 
-            local head = character:WaitForChild("Head")
-            if not head then return end
-
-            local box = Instance.new("BillboardGui")
-            box.Name = "ESPBox"
-            box.Adornee = head
-            box.Size = UDim2.new(0, 50, 0, 50)
-            box.StudsOffsetWorldSpace = Vector3.new(0, 2, 0)
-            box.AlwaysOnTop = true
-            box.Parent = head
-
-            local frame = Instance.new("Frame")
-            frame.Size = UDim2.new(1, 0, 1, 0)
-            frame.BackgroundTransparency = 0.8
-            frame.BackgroundColor3 = Color3.new(0, 1, 0)
-            frame.Parent = box
-
-            local nameLabel = Instance.new("TextLabel")
-            nameLabel.Size = UDim2.new(1, 0, 0.5, 0)
-            nameLabel.Position = UDim2.new(0, 0, -0.5, 0)
-            nameLabel.Text = player.Name
-            nameLabel.TextColor3 = Color3.new(1, 1, 1)
-            nameLabel.BackgroundTransparency = 1
-            nameLabel.TextStrokeColor3 = Color3.new(0,0,0)
-            nameLabel.TextStrokeTransparency = 0
-            nameLabel.Font = Enum.Font.SourceSansBold
-            nameLabel.TextSize = 14
-            nameLabel.Parent = frame
+local function enableESP()
+    if espEnabled then return end
+    espEnabled = true
+    espUpdateConn = game:GetService("RunService").Heartbeat:Connect(function()
+        if not espEnabled then return end
+        if not _G._lastESPUpdate or (tick() - _G._lastESPUpdate) >= 0.1 then
+            for _, player in ipairs(Players:GetPlayers()) do
+                if player ~= LocalPlayer and player.Character then
+                    addHighlightToCharacter(player.Character)
+                end
+            end
+            _G._lastESPUpdate = tick()
         end
+    end)
+end
 
-        local function removeESP(player)
-            if player and player.Character then
-                local character = player.Character
-                if character:FindFirstChild("Head") then
-                    local head = character:FindFirstChild("Head")
-                         if head:FindFirstChild("ESPBox") then
-                              head.ESPBox:Destroy()
-                         end
+local function disableESP()
+    if not espEnabled then return end
+    espEnabled = false
+    if espUpdateConn then
+        espUpdateConn:Disconnect()
+        espUpdateConn = nil
+    end
+    for _, player in ipairs(Players:GetPlayers()) do
+        if player ~= LocalPlayer and player.Character then
+            removeHighlightFromCharacter(player.Character)
+        end
+    end
+end
+
+local Toggle = Tabs.Esp:AddToggle("MyToggle", {
+    Title = "Player ESP",
+    Description = "it says...",
+    Default = false,
+    Callback = function(state)
+        if state then
+            enableESP()
+        else
+            disableESP()
+        end
+    end
+})
+
+
+
+
+
+
+
+Tabs.Esp:AddButton({
+    Title = "Esp Most Expensive Brainrot",
+    Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/34t34t33/mostexpensive.github.io/refs/heads/main/rare.lua"))()
+    end,
+})
+
+
+
+
+
+local plotTimers_Enabled = false
+local plotTimers_RenderConnection = nil
+local plotTimers_OriginalProperties = {}
+
+local function disablePlotTimers()
+    plotTimers_Enabled = false
+    if plotTimers_RenderConnection then
+        plotTimers_RenderConnection:Disconnect()
+        plotTimers_RenderConnection = nil
+    end
+    for label, props in pairs(plotTimers_OriginalProperties) do
+        pcall(function()
+            if label and label.Parent then
+                local bb = label:FindFirstAncestorWhichIsA("BillboardGui")
+                if bb and bb.Parent then
+                    bb.Enabled = props.bb_enabled
+                    bb.AlwaysOnTop = props.bb_alwaysOnTop
+                    bb.Size = props.bb_size
+                    bb.MaxDistance = props.bb_maxDistance
+                    label.TextScaled = props.label_textScaled
+                    label.TextWrapped = props.label_textWrapped
+                    label.AutomaticSize = props.label_automaticSize
+                    label.Size = props.label_size
+                    label.TextSize = props.label_textSize
+                end
+            end
+        end)
+    end
+    table.clear(plotTimers_OriginalProperties)
+end
+
+local function enablePlotTimers()
+    disablePlotTimers()
+    plotTimers_Enabled = true
+    local camera = workspace.CurrentCamera
+    local DISTANCE_THRESHOLD = 45
+    local SCALE_START, SCALE_RANGE = 100, 300
+    local MIN_TEXT_SIZE, MAX_TEXT_SIZE = 30, 36
+    local lastUpdate = 0
+
+    plotTimers_RenderConnection = RunService.RenderStepped:Connect(function()
+        if not plotTimers_Enabled then return end
+        if tick() - lastUpdate < 0.1 then return end
+        lastUpdate = tick()
+
+        for _, label in ipairs(workspace.Plots:GetDescendants()) do
+            if label:IsA("TextLabel") and label.Name == "RemainingTime" then
+                local bb = label:FindFirstAncestorWhichIsA("BillboardGui")
+                if not bb then continue end
+                local model = bb:FindFirstAncestorWhichIsA("Model")
+                if not model then continue end
+                local basePart = model:FindFirstChildWhichIsA("BasePart", true)
+                if not basePart then continue end
+                if not plotTimers_OriginalProperties[label] then
+                    plotTimers_OriginalProperties[label] = {
+                        bb_enabled = bb.Enabled,
+                        bb_alwaysOnTop = bb.AlwaysOnTop,
+                        bb_size = bb.Size,
+                        bb_maxDistance = bb.MaxDistance,
+                        label_textScaled = label.TextScaled,
+                        label_textWrapped = label.TextWrapped,
+                        label_automaticSize = label.AutomaticSize,
+                        label_size = label.Size,
+                        label_textSize = label.TextSize,
+                    }
+                end
+                bb.MaxDistance = 10000
+                bb.AlwaysOnTop = true
+                bb.ClipsDescendants = false
+                bb.Size = UDim2.new(0, 300, 0, 150)
+                label.TextScaled = false
+                label.TextWrapped = true
+                label.ClipsDescendants = false
+                label.Size = UDim2.new(1, 0, 0, 32)
+                label.AutomaticSize = Enum.AutomaticSize.Y
+
+                local distance = (camera.CFrame.Position - basePart.Position).Magnitude
+                if distance > DISTANCE_THRESHOLD and basePart.Position.Y >= 0 then
+                    bb.Enabled = false
+                else
+                    bb.Enabled = true
+                    local t = math.clamp((distance - SCALE_START) / SCALE_RANGE, 0, 1)
+                    local newTextSize = math.clamp(MIN_TEXT_SIZE + (MAX_TEXT_SIZE - MIN_TEXT_SIZE) * t, MIN_TEXT_SIZE, MAX_TEXT_SIZE)
+                    label.TextSize = newTextSize
+                    label.Size = UDim2.new(1, 0, 0, newTextSize + 6)
                 end
             end
         end
+    end)
+end
 
-        if espEnabled then
-            for _, player in ipairs(Players:GetPlayers()) do
-                createESP(player)
-            end
+local Toggle = Tabs.Esp:AddToggle("MyToggle", {
+    Title = "Esp Base Times",
+    Desc = "Esp Base Times",
+    Icon = "eye",
+    Type = "Checkbox",
+    Default = false,
+    Callback = function(state)
+        if state then
+            enablePlotTimers()
         else
-            for _, player in ipairs(Players:GetPlayers()) do
-                removeESP(player)
-            end
+            disablePlotTimers()
         end
-
-        Players.PlayerAdded:Connect(function(player)
-            if espEnabled then
-                wait(1)
-                createESP(player)
-            end
-        end)
-
-        Players.PlayerRemoving:Connect(function(player)
-            removeESP(player)
-        end)
     end
 })
+
+
 
 Tabs.Steal:AddButton({
     Title = "Float Forward",
