@@ -5,11 +5,7 @@ local Player = Players.LocalPlayer
 local PlayerGui = Player:WaitForChild("PlayerGui")
 local StarterGui = game:GetService("StarterGui")
 
-StarterGui:SetCore("SendNotification", {
-    Title = "HackManHub Key System";
-    Text = "KEY SYSTEM BROKE IT WILL BE KEYLESS UNTIL IT GOT FIXED";
-    Duration = 20; -- seconds
-})
+
      
 
 
