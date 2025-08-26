@@ -179,11 +179,12 @@ local StarterGui = game:GetService("StarterGui")
 
 StarterGui:SetCore("SendNotification", {
     Title = "HackManHub";
-    Text = "Credits to unknowhub for auto farm system";
+    Text = "Loaded V2";
     Duration = 5; -- seconds
 })
 
-		-- hello
+
+-- hello
 print("4")
 local name = game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId).Name
 local supportedVersion = "v1.5.2"
@@ -225,8 +226,8 @@ local function modal(title, description, call)
     return modalw
 end
 if isfile and readfile and listfiles and writefile and makefolder then
-    if not isfolder("CandyHub\\Builds") then
-        makefolder("CandyHub\\Builds")
+    if not isfolder("HackManHub\\Builds") then
+        makefolder("HackManHub\\Builds")
     end
 else
     print("filing system unsupported")
@@ -732,6 +733,47 @@ f1:Checkbox({
         end)
 	end
 })
+
+f1:Checkbox({
+	Value = _G.candyhub.superfarmer or false,
+	Label = "Money Farm V2 + Moon Event Farm [INSTA MONEY]",
+	Callback = function(self, v: boolean)
+        task.spawn(function()
+            _G.candyhub.superfarmer=v;savecfg()
+            game:GetService("CoreGui").PurchasePromptApp.Enabled = not _G.candyhub.superfarmer
+            task.spawn(function() 
+                for i = 1, 300 do
+                    task.spawn(function() 
+                        while _G.candyhub.superfarmer and task.wait() do
+						                if game:GetService("Players").LocalPlayer.Important.Eclipse.Value ~= false then
+                    game:GetService("ReplicatedStorage").Remotes.SpectialEvents.MachineActivated:FireServer()
+                end
+						                if game:GetService("Players").LocalPlayer.Important.RedMoons.Value >= 10 then
+                    game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("SpinEvents"):WaitForChild("PurchaseSpin"):InvokeServer()
+                end
+				                if game:GetService("Players").LocalPlayer.replicated_data.available_spins.Value >= 1 then
+                    game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("SpinEvents"):WaitForChild("PerformSpin"):InvokeServer()
+                end
+                            game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("EventEvents"):WaitForChild("SpawnEvilEye"):InvokeServer()
+                            game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("EventEvents"):WaitForChild("KillEvilEye"):InvokeServer()
+                        end
+                    end)
+                end 
+            end)
+            task.spawn(function()
+                for i = 1,80 do
+                    task.spawn(function()
+                        while _G.candyhub.superfarmer and task.wait() do
+                            game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("SpinEvents"):WaitForChild("PurchaseSpin"):InvokeServer()
+                            game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("SpinEvents"):WaitForChild("PerformSpin"):InvokeServer()
+                        end
+                    end)
+                end
+            end)
+        end)
+	end
+})
+
 print("8:396")
 f1:Checkbox({
     Value = _G.candyhub.gm,
@@ -1199,7 +1241,7 @@ me:Combo({
 
 me:Checkbox({
 	Value = _G.candyhub.superfarmer or false,
-	Label = "Money Farm + Moon Event Farm [WORKS]",
+	Label = "Money Farm V2 + Moon Event Farm [INSTA]",
 	Callback = function(self, v: boolean)
         task.spawn(function()
             _G.candyhub.superfarmer=v;savecfg()
@@ -1208,8 +1250,15 @@ me:Checkbox({
                 for i = 1, 300 do
                     task.spawn(function() 
                         while _G.candyhub.superfarmer and task.wait() do
+						                if game:GetService("Players").LocalPlayer.replicated_data.available_spins.Value >= 1 then
+                    game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("SpinEvents"):WaitForChild("PerformSpin"):InvokeServer()
+                end
                             game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("EventEvents"):WaitForChild("SpawnEvilEye"):InvokeServer()
                             game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("EventEvents"):WaitForChild("KillEvilEye"):InvokeServer()
+
+               if game:GetService("Players").LocalPlayer.replicated_data.available_spins.Value >= 1 then
+                    game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("SpinEvents"):WaitForChild("PerformSpin"):InvokeServer()
+                end
                         end
                     end)
                 end 
@@ -1241,6 +1290,9 @@ me:Checkbox({
         end)
 	end
 })]]
+
+
+
 
 me:Checkbox({
 	Value = _G.candyhub.abs,
@@ -1382,7 +1434,7 @@ elseif supportedVersion == serverVersion then
 else
     bb1 = 255
     bb2 = 0
-    security = " UNBYPASSED YOU CAN GET BANNED\n"
+    security = " Fully Bypassed"
 end
 
 local x = info:Label({Text = "Supported Version:   ".. supportedVersion .." | " .. tostring(supportedVersionp) .. "\nServer/Game Version: " .. serverVersion .. " | " .. tostring(game.PlaceVersion) .. "\n"})
@@ -1493,6 +1545,28 @@ if request then
         end
     })
 end
+print("U_U")
+--[[
+
+-- TODO:TODO:TODO:TODO:TODO:TODO:TODO:TODO:TODO:TODO:TODO:TODO:TODO:TODO:
+
+-- TODO:
+- more efficient
+- loading...
+- keysystem better
+- helo world
+- anti afk v2
+- antiafk improvement
+- reinitalize after rejoin
+- auto kill other planes
+
+
+
+
+-- TODO:TODO:TODO:TODO:TODO:TODO:TODO:TODO:TODO:TODO:TODO:TODO:TODO:TODO:
+
+
+]]
 
 
         end
