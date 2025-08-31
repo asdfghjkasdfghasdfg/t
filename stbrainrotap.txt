@@ -185,7 +185,7 @@ local function tweenWalkTo(position)
 	local startPos = hrp.Position
 	local targetPos = Vector3.new(position.X, position.Y + Y_OFFSET, position.Z)
 	local distance = (targetPos - startPos).Magnitude
-	local speed = math.max(humanoid.WalkSpeed, 24)
+	local speed = math.max(humanoid.WalkSpeed, 40)
 	local duration = distance / speed
 	local tweenInfo = TweenInfo.new(duration, Enum.EasingStyle.Linear)
 
