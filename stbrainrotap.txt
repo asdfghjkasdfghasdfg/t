@@ -95,7 +95,7 @@ title.TextSize = 14
 title.ZIndex = 2
 
 local tweenButton = Instance.new("TextButton", frame)
-tweenButton.Text = "▶ START TWEEN TO BASE"
+tweenButton.Text = "START auto farm"
 tweenButton.Size = UDim2.new(0.8, 0, 0, 40)
 tweenButton.Position = UDim2.new(0.1, 0, 0.25, 0)
 tweenButton.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
