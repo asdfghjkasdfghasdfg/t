@@ -95,7 +95,7 @@ title.TextSize = 14
 title.ZIndex = 2
 
 local tweenButton = Instance.new("TextButton", frame)
-tweenButton.Text = "START auto farm"
+tweenButton.Text = "START TP ATEMPT"
 tweenButton.Size = UDim2.new(0.8, 0, 0, 40)
 tweenButton.Position = UDim2.new(0.1, 0, 0.25, 0)
 tweenButton.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
@@ -249,8 +249,8 @@ function startTweenToBase()
 	active = true
 	applyAntiDeath(true)
 	humanoid.WalkSpeed = 24
-	statusLabel.Text = "Status: Walking to Base..."
-	tweenButton.Text = "▶ START AGAIN"
+	statusLabel.Text = "Status: Walking to Base... WITH CFRAME TP"
+	tweenButton.Text = "START AGAIN"
 	tweenButton.BackgroundColor3 = Color3.fromRGB(180, 60, 60)
 
 	walkThread = task.spawn(function()
@@ -268,7 +268,7 @@ function stopTweenToBase()
 	if walkThread then task.cancel(walkThread) end
 	humanoid.WalkSpeed = 24
 	statusLabel.Text = "Status: Stopped"
-	tweenButton.Text = "▶ START TWEEN TO BASE"
+	tweenButton.Text = " START TP CFRAME"
 	tweenButton.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
 end
 
