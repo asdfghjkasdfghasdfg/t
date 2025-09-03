@@ -175,7 +175,7 @@ local function getBasePosition()
 	return nil
 end
 
-local Y_OFFSET = 12
+local Y_OFFSET = 10
 local STOP_DISTANCE = 5
 
 local currentTween
