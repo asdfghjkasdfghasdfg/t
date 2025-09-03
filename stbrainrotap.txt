@@ -106,7 +106,7 @@ tweenButton.ZIndex = 2
 Instance.new("UICorner", tweenButton).CornerRadius = UDim.new(0, 8)
 
 local statusLabel = Instance.new("TextLabel", frame)
-statusLabel.Text = "Status: No Tweening"
+statusLabel.Text = "Status: MONEY SHOULD 3K+ AND COIL press again not work"
 statusLabel.Size = UDim2.new(1, 0, 0, 30)
 statusLabel.Position = UDim2.new(0, 0, 0.7, 0)
 statusLabel.BackgroundTransparency = 1
