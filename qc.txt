@@ -1,0 +1,66 @@
+	--// Services
+local Players = game:GetService("Players")
+local player = Players.LocalPlayer
+local gui = Instance.new("ScreenGui")
+gui.Name = "ConfirmGUI"
+gui.Parent = player:WaitForChild("PlayerGui")
+
+--// Frame
+local frame = Instance.new("Frame")
+frame.Size = UDim2.new(0, 350, 0, 150)
+frame.Position = UDim2.new(0.5, -175, 0.5, -75)
+frame.BackgroundColor3 = Color3.fromRGB(30,30,30)
+frame.BorderSizePixel = 0
+frame.Parent = gui
+
+local UICorner = Instance.new("UICorner", frame)
+UICorner.CornerRadius = UDim.new(0,10)
+
+--// Text
+local text = Instance.new("TextLabel")
+text.Size = UDim2.new(1, -20, 0.6, -20)
+text.Position = UDim2.new(0, 10, 0, 10)
+text.TextWrapped = true
+text.TextScaled = true
+text.Text = "Are you sure you want to load the main Steal-a-Brainrot GUI?\nThis may kick you if you use auto steal.\n\nIf you only want auto steal, click YES.\nIf you want the menu, click NO."
+text.BackgroundTransparency = 1
+text.TextColor3 = Color3.fromRGB(255,255,255)
+text.Font = Enum.Font.GothamBold
+text.Parent = frame
+
+--// Buttons
+local yes = Instance.new("TextButton")
+yes.Size = UDim2.new(0.45, 0, 0.25, 0)
+yes.Position = UDim2.new(0.05, 0, 0.7, 0)
+yes.BackgroundColor3 = Color3.fromRGB(0,170,0)
+yes.Text = "YES"
+yes.TextColor3 = Color3.fromRGB(255,255,255)
+yes.Font = Enum.Font.GothamBold
+yes.TextScaled = true
+yes.Parent = frame
+Instance.new("UICorner", yes).CornerRadius = UDim.new(0,8)
+
+local no = Instance.new("TextButton")
+no.Size = UDim2.new(0.45, 0, 0.25, 0)
+no.Position = UDim2.new(0.5, 0, 0.7, 0)
+no.BackgroundColor3 = Color3.fromRGB(170,0,0)
+no.Text = "NO"
+no.TextColor3 = Color3.fromRGB(255,255,255)
+no.Font = Enum.Font.GothamBold
+no.TextScaled = true
+no.Parent = frame
+Instance.new("UICorner", no).CornerRadius = UDim.new(0,8)
+
+--// Button Logic
+yes.MouseButton1Click:Connect(function()
+    gui:Destroy()
+	loadstring(game:HttpGet("https://raw.githubusercontent.com/asdfghjkasdfghasdfg/t/refs/heads/main/stbrainrotap.txt"))()
+    
+    print("Auto Steal only loaded")
+end)
+
+no.MouseButton1Click:Connect(function()
+    gui:Destroy()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/asdfghjkasdfghasdfg/t/refs/heads/main/a.txt"))()
+    print("Menu loaded")
+end)
