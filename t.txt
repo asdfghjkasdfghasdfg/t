@@ -6,7 +6,7 @@ local PlayerGui = Player:WaitForChild("PlayerGui")
 local StarterGui = game:GetService("StarterGui")
 
 -- CONFIGURATION
-local Identifier = "hackmanhubreal" -- Replace with your Panda Dev service identifier
+local Identifier = "nil" -- Replace with your Panda Dev service identifier
 
 -- Validate key by calling the validation URL with HttpGet
 local function ValidateKey(key, serviceId, hwid)
