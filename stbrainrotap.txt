@@ -286,9 +286,3 @@ end)
 
 -- Jangan auto start tween supaya manual lewat tombol
 -- startTweenToBase()
-
-            Fluent:Notify({
-                Title = "WARNING",
-                Content = "MAKE SURE TO EXECUTE WHEN TIMRE OF BASE YUOR GONNA STEAL LEFT 10 SO YOU DONT GET KICKED EARLY",
-                Duration = 30
-            })
