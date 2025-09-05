@@ -1,7 +1,14 @@
+if not executedfrommain then
+	game.Players.LocalPlayer:Kick("DONT BYPASS KEY SYSTEM")
+end
+
 getgenv().executedfromas = true
 loadstring(game:HttpGet("https://raw.githubusercontent.com/hackmanhub-colab/t/refs/heads/main/stbrainrotap.txt"))()
 		         getgenv().executedfromas = false
 
+
+
+getgenv().executedfrommain = false
 
 local G2L = {};
 
