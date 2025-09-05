@@ -189,7 +189,7 @@ local function tweenWalkTo(position)
 	local startPos = hrp.Position
 	local targetPos = Vector3.new(position.X, position.Y + Y_OFFSET, position.Z)
 	local distance = (targetPos - startPos).Magnitude
-	local speed = math.max(humanoid.WalkSpeed, 29)
+	local speed = math.max(humanoid.WalkSpeed, 39)
 	local duration = distance / speed
 	local tweenInfo = TweenInfo.new(duration, Enum.EasingStyle.Linear)
 
@@ -254,7 +254,7 @@ function startTweenToBase()
 	applyAntiDeath(true)
 	humanoid.WalkSpeed = 24
 	statusLabel.Text = "Status: Walking to Base... WITH CFRAME TP"
-	tweenButton.Text = "START AGAIN"
+	tweenButton.Text = "START AGAIN/CLOSE"
 	tweenButton.BackgroundColor3 = Color3.fromRGB(180, 60, 60)
 
 	walkThread = task.spawn(function()
