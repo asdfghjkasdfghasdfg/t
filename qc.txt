@@ -10,6 +10,8 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/hackmanhub-colab/t/re
 
 getgenv().executedfrommain = false
 
+
+
 local G2L = {};
 
 -- StarterGui.s
@@ -21,7 +23,7 @@ G2L["1"]["ZIndexBehavior"] = Enum.ZIndexBehavior.Sibling;
 -- StarterGui.s.main
 G2L["2"] = Instance.new("Frame", G2L["1"]);
 G2L["2"]["BorderSizePixel"] = 0;
-G2L["2"]["BackgroundColor3"] = Color3.fromRGB(28, 30, 39);
+G2L["2"]["BackgroundColor3"] = Color3.fromRGB(255, 132, 8);
 G2L["2"]["AnchorPoint"] = Vector2.new(0.5, 0.5);
 G2L["2"]["AutomaticSize"] = Enum.AutomaticSize.X;
 G2L["2"]["Size"] = UDim2.new(0.21181, 0, 0.40244, 0);
@@ -38,7 +40,7 @@ G2L["3"]["TextSize"] = 14;
 G2L["3"]["TextScaled"] = true;
 G2L["3"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
 G2L["3"]["BackgroundColor3"] = Color3.fromRGB(184, 187, 24);
-G2L["3"]["FontFace"] = Font.new([[rbxasset://fonts/families/Inconsolata.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
+G2L["3"]["FontFace"] = Font.new([[rbxasset://fonts/families/Ubuntu.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
 G2L["3"]["AnchorPoint"] = Vector2.new(0.5, 0.5);
 G2L["3"]["AutomaticSize"] = Enum.AutomaticSize.X;
 G2L["3"]["Size"] = UDim2.new(0.32692, 0, 0.11111, 0);
@@ -52,6 +54,9 @@ G2L["3"]["Position"] = UDim2.new(0.5, 0, 0.05556, 0);
 G2L["4"] = Instance.new("UITextSizeConstraint", G2L["3"]);
 G2L["4"]["MaxTextSize"] = 22;
 
+G2L["37"] = Instance.new("UICorner", G2L["2"]);
+G2L["37"]["CornerRadius"] = UDim.new(0, 50);
+
 
 -- StarterGui.s.main.miscbtn
 G2L["5"] = Instance.new("TextButton", G2L["2"]);
@@ -61,12 +66,13 @@ G2L["5"]["TextSize"] = 14;
 G2L["5"]["TextScaled"] = true;
 G2L["5"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
 G2L["5"]["BackgroundColor3"] = Color3.fromRGB(70, 70, 255);
-G2L["5"]["FontFace"] = Font.new([[rbxasset://fonts/families/Inconsolata.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
+G2L["5"]["FontFace"] = Font.new([[rbxasset://fonts/families/Ubuntu.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
 G2L["5"]["AnchorPoint"] = Vector2.new(0.5, 0.5);
 G2L["5"]["AutomaticSize"] = Enum.AutomaticSize.X;
+G2L["5"]["BackgroundTransparency"] = 0;
 G2L["5"]["Size"] = UDim2.new(0.33654, 0, 0.11111, 0);
 G2L["5"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
-G2L["5"]["Text"] = [[MISC]];
+G2L["5"]["Text"] = [[SOON]];
 G2L["5"]["Name"] = [[miscbtn]];
 G2L["5"]["Position"] = UDim2.new(0.83173, 0, 0.05556, 0);
 
@@ -84,7 +90,7 @@ G2L["7"]["TextSize"] = 14;
 G2L["7"]["TextScaled"] = true;
 G2L["7"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
 G2L["7"]["BackgroundColor3"] = Color3.fromRGB(37, 176, 37);
-G2L["7"]["FontFace"] = Font.new([[rbxasset://fonts/families/Inconsolata.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
+G2L["7"]["FontFace"] = Font.new([[rbxasset://fonts/families/Ubuntu.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
 G2L["7"]["AnchorPoint"] = Vector2.new(0.5, 0.5);
 G2L["7"]["AutomaticSize"] = Enum.AutomaticSize.X;
 G2L["7"]["Size"] = UDim2.new(0.33654, 0, 0.11111, 0);
@@ -124,7 +130,7 @@ G2L["a"]["TextSize"] = 14;
 G2L["a"]["TextScaled"] = true;
 G2L["a"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
 G2L["a"]["BackgroundColor3"] = Color3.fromRGB(174, 42, 42);
-G2L["a"]["FontFace"] = Font.new([[rbxasset://fonts/families/Inconsolata.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
+G2L["a"]["FontFace"] = Font.new([[rbxasset://fonts/families/Ubuntu.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
 G2L["a"]["ZIndex"] = 4;
 G2L["a"]["Size"] = UDim2.new(0, 174, 0, 34);
 G2L["a"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
@@ -151,7 +157,7 @@ G2L["d"]["TextSize"] = 14;
 G2L["d"]["TextScaled"] = true;
 G2L["d"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
 G2L["d"]["BackgroundColor3"] = Color3.fromRGB(174, 42, 42);
-G2L["d"]["FontFace"] = Font.new([[rbxasset://fonts/families/Inconsolata.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
+G2L["d"]["FontFace"] = Font.new([[rbxasset://fonts/families/Ubuntu.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
 G2L["d"]["ZIndex"] = 5;
 G2L["d"]["Size"] = UDim2.new(0, 174, 0, 34);
 G2L["d"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
@@ -178,7 +184,7 @@ G2L["10"]["TextSize"] = 14;
 G2L["10"]["TextScaled"] = true;
 G2L["10"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
 G2L["10"]["BackgroundColor3"] = Color3.fromRGB(174, 42, 42);
-G2L["10"]["FontFace"] = Font.new([[rbxasset://fonts/families/Inconsolata.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
+G2L["10"]["FontFace"] = Font.new([[rbxasset://fonts/families/Ubuntu.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
 G2L["10"]["ZIndex"] = 2;
 G2L["10"]["Size"] = UDim2.new(0, 174, 0, 34);
 G2L["10"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
@@ -205,7 +211,7 @@ G2L["13"]["TextSize"] = 14;
 G2L["13"]["TextScaled"] = true;
 G2L["13"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
 G2L["13"]["BackgroundColor3"] = Color3.fromRGB(174, 42, 42);
-G2L["13"]["FontFace"] = Font.new([[rbxasset://fonts/families/Inconsolata.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
+G2L["13"]["FontFace"] = Font.new([[rbxasset://fonts/families/Ubuntu.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
 G2L["13"]["ZIndex"] = 2;
 G2L["13"]["Size"] = UDim2.new(0, 174, 0, 34);
 G2L["13"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
@@ -232,7 +238,7 @@ G2L["16"]["TextSize"] = 14;
 G2L["16"]["TextScaled"] = true;
 G2L["16"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
 G2L["16"]["BackgroundColor3"] = Color3.fromRGB(174, 42, 42);
-G2L["16"]["FontFace"] = Font.new([[rbxasset://fonts/families/Inconsolata.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
+G2L["16"]["FontFace"] = Font.new([[rbxasset://fonts/families/Ubuntu.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
 G2L["16"]["ZIndex"] = 3;
 G2L["16"]["Size"] = UDim2.new(0, 174, 0, 34);
 G2L["16"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
@@ -295,7 +301,7 @@ G2L["1d"]["TextSize"] = 14;
 G2L["1d"]["TextScaled"] = true;
 G2L["1d"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
 G2L["1d"]["BackgroundColor3"] = Color3.fromRGB(174, 42, 42);
-G2L["1d"]["FontFace"] = Font.new([[rbxasset://fonts/families/Inconsolata.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
+G2L["1d"]["FontFace"] = Font.new([[rbxasset://fonts/families/Ubuntu.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
 G2L["1d"]["ZIndex"] = 4;
 G2L["1d"]["Size"] = UDim2.new(0, 174, 0, 34);
 G2L["1d"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
@@ -322,7 +328,7 @@ G2L["20"]["TextSize"] = 14;
 G2L["20"]["TextScaled"] = true;
 G2L["20"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
 G2L["20"]["BackgroundColor3"] = Color3.fromRGB(174, 42, 42);
-G2L["20"]["FontFace"] = Font.new([[rbxasset://fonts/families/Inconsolata.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
+G2L["20"]["FontFace"] = Font.new([[rbxasset://fonts/families/Ubuntu.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
 G2L["20"]["ZIndex"] = 5;
 G2L["20"]["Size"] = UDim2.new(0, 174, 0, 34);
 G2L["20"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
@@ -349,7 +355,7 @@ G2L["23"]["TextSize"] = 14;
 G2L["23"]["TextScaled"] = true;
 G2L["23"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
 G2L["23"]["BackgroundColor3"] = Color3.fromRGB(174, 42, 42);
-G2L["23"]["FontFace"] = Font.new([[rbxasset://fonts/families/Inconsolata.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
+G2L["23"]["FontFace"] = Font.new([[rbxasset://fonts/families/Ubuntu.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
 G2L["23"]["ZIndex"] = 2;
 G2L["23"]["Size"] = UDim2.new(0, 174, 0, 34);
 G2L["23"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
@@ -400,7 +406,7 @@ G2L["29"]["AnchorPoint"] = Vector2.new(0.5, 0.5);
 G2L["29"]["Size"] = UDim2.new(1, 0, 0.88889, 0);
 G2L["29"]["Position"] = UDim2.new(0.5, 0, 0.55556, 0);
 G2L["29"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
-G2L["29"]["BackgroundTransparency"] = 1;
+G2L["29"]["BackgroundTransparency"] = 0;
 
 
 -- StarterGui.s.main.misc.Quantum Cloner
@@ -411,8 +417,9 @@ G2L["2a"]["TextSize"] = 14;
 G2L["2a"]["TextScaled"] = true;
 G2L["2a"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
 G2L["2a"]["BackgroundColor3"] = Color3.fromRGB(101, 101, 101);
-G2L["2a"]["FontFace"] = Font.new([[rbxasset://fonts/families/Inconsolata.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
+G2L["2a"]["FontFace"] = Font.new([[rbxasset://fonts/families/Ubuntu.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
 G2L["2a"]["ZIndex"] = 4;
+G2L["2a"]["BackgroundTransparency"] = 1;
 G2L["2a"]["Size"] = UDim2.new(0, 174, 0, 34);
 G2L["2a"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
 G2L["2a"]["Text"] = [[Quantum Cloner]];
@@ -438,8 +445,9 @@ G2L["2d"]["TextSize"] = 14;
 G2L["2d"]["TextScaled"] = true;
 G2L["2d"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
 G2L["2d"]["BackgroundColor3"] = Color3.fromRGB(101, 101, 101);
-G2L["2d"]["FontFace"] = Font.new([[rbxasset://fonts/families/Inconsolata.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
+G2L["2d"]["FontFace"] = Font.new([[rbxasset://fonts/families/Ubuntu.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
 G2L["2d"]["ZIndex"] = 5;
+G2L["2d"]["BackgroundTransparency"] = 1;
 G2L["2d"]["Size"] = UDim2.new(0, 174, 0, 34);
 G2L["2d"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
 G2L["2d"]["Text"] = [[Medusa's head]];
@@ -465,8 +473,9 @@ G2L["30"]["TextSize"] = 14;
 G2L["30"]["TextScaled"] = true;
 G2L["30"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
 G2L["30"]["BackgroundColor3"] = Color3.fromRGB(101, 101, 101);
-G2L["30"]["FontFace"] = Font.new([[rbxasset://fonts/families/Inconsolata.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
+G2L["30"]["FontFace"] = Font.new([[rbxasset://fonts/families/Ubuntu.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
 G2L["30"]["ZIndex"] = 2;
+G2L["30"]["BackgroundTransparency"] = 1;
 G2L["30"]["Size"] = UDim2.new(0, 174, 0, 34);
 G2L["30"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
 G2L["30"]["Text"] = [[Invisibility Cloak]];
@@ -511,12 +520,18 @@ G2L["36"]["Name"] = [[TabSwitchingScript]];
 -- StarterGui.s.tab
 G2L["37"] = Instance.new("Frame", G2L["1"]);
 G2L["37"]["BorderSizePixel"] = 0;
-G2L["37"]["BackgroundColor3"] = Color3.fromRGB(21, 21, 27);
+G2L["37"]["BackgroundColor3"] = Color3.fromRGB(255, 147, 14);
 G2L["37"]["AnchorPoint"] = Vector2.new(0.5, 0.5);
 G2L["37"]["Size"] = UDim2.new(0.21181, 0, 0.08333, 0);
 G2L["37"]["Position"] = UDim2.new(0.50648, 0, 0.25541, 0);
 G2L["37"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
 G2L["37"]["Name"] = [[tab]];
+
+-- StarterGui.s.tab.UICorner
+G2L["41"] = Instance.new("UICorner", G2L["38"]);
+G2L["41"]["CornerRadius"] = UDim.new(1, 0);
+
+
 
 
 -- StarterGui.s.tab.close
@@ -527,7 +542,7 @@ G2L["38"]["TextSize"] = 14;
 G2L["38"]["TextScaled"] = true;
 G2L["38"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
 G2L["38"]["BackgroundColor3"] = Color3.fromRGB(191, 26, 56);
-G2L["38"]["FontFace"] = Font.new([[rbxasset://fonts/families/Inconsolata.json]], Enum.FontWeight.Bold, Enum.FontStyle.Normal);
+G2L["38"]["FontFace"] = Font.new([[rbxasset://fonts/families/Ubuntu.json]], Enum.FontWeight.Bold, Enum.FontStyle.Normal);
 G2L["38"]["AnchorPoint"] = Vector2.new(0.5, 0.5);
 G2L["38"]["Size"] = UDim2.new(0.11058, 0, 0.56098, 0);
 G2L["38"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
@@ -549,13 +564,15 @@ G2L["3a"]["TextSize"] = 14;
 G2L["3a"]["TextScaled"] = true;
 G2L["3a"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
 G2L["3a"]["BackgroundColor3"] = Color3.fromRGB(55, 37, 191);
-G2L["3a"]["FontFace"] = Font.new([[rbxasset://fonts/families/Inconsolata.json]], Enum.FontWeight.Bold, Enum.FontStyle.Normal);
+G2L["3a"]["FontFace"] = Font.new([[rbxasset://fonts/families/Ubuntu.json]], Enum.FontWeight.Bold, Enum.FontStyle.Normal);
 G2L["3a"]["AnchorPoint"] = Vector2.new(0.5, 0.5);
 G2L["3a"]["Size"] = UDim2.new(0.11058, 0, 0.56098, 0);
 G2L["3a"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
 G2L["3a"]["Text"] = [[-]];
 G2L["3a"]["Name"] = [[minimize]];
 G2L["3a"]["Position"] = UDim2.new(0.77404, 0, 0.4878, 0);
+
+
 
 
 -- StarterGui.s.tab.minimize.UITextSizeConstraint
@@ -570,13 +587,13 @@ G2L["3c"]["BorderSizePixel"] = 0;
 G2L["3c"]["TextSize"] = 14;
 G2L["3c"]["TextScaled"] = true;
 G2L["3c"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
-G2L["3c"]["FontFace"] = Font.new([[rbxasset://fonts/families/Inconsolata.json]], Enum.FontWeight.Bold, Enum.FontStyle.Normal);
+G2L["3c"]["FontFace"] = Font.new([[rbxasset://fonts/families/Ubuntu.json]], Enum.FontWeight.Bold, Enum.FontStyle.Normal);
 G2L["3c"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
 G2L["3c"]["BackgroundTransparency"] = 1;
 G2L["3c"]["AnchorPoint"] = Vector2.new(0.5, 0.5);
 G2L["3c"]["Size"] = UDim2.new(0.37019, 0, 0.56098, 0);
 G2L["3c"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
-G2L["3c"]["Text"] = [[HACKMANHUB BETA]];
+G2L["3c"]["Text"] = [[HACKMANHUB STEAL GUI]];
 G2L["3c"]["Position"] = UDim2.new(0.22115, 0, 0.4878, 0);
 
 
@@ -612,7 +629,7 @@ G2L["41"]["BorderSizePixel"] = 0;
 G2L["41"]["TextSize"] = 14;
 G2L["41"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
 G2L["41"]["BackgroundColor3"] = Color3.fromRGB(174, 42, 42);
-G2L["41"]["FontFace"] = Font.new([[rbxasset://fonts/families/Inconsolata.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
+G2L["41"]["FontFace"] = Font.new([[rbxasset://fonts/families/Ubuntu.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
 G2L["41"]["Size"] = UDim2.new(0.88435, 0, 0.36957, 0);
 G2L["41"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
 G2L["41"]["Text"] = [[OFF]];
@@ -632,7 +649,7 @@ G2L["43"]["BorderSizePixel"] = 0;
 G2L["43"]["TextSize"] = 14;
 G2L["43"]["TextScaled"] = true;
 G2L["43"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
-G2L["43"]["FontFace"] = Font.new([[rbxasset://fonts/families/Inconsolata.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
+G2L["43"]["FontFace"] = Font.new([[rbxasset://fonts/families/Ubuntu.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
 G2L["43"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
 G2L["43"]["BackgroundTransparency"] = 1;
 G2L["43"]["Size"] = UDim2.new(0.44218, 0, 0.18478, 0);
@@ -646,7 +663,7 @@ G2L["44"] = Instance.new("TextLabel", G2L["40"]);
 G2L["44"]["BorderSizePixel"] = 0;
 G2L["44"]["TextSize"] = 14;
 G2L["44"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
-G2L["44"]["FontFace"] = Font.new([[rbxasset://fonts/families/Inconsolata.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
+G2L["44"]["FontFace"] = Font.new([[rbxasset://fonts/families/Ubuntu.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
 G2L["44"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
 G2L["44"]["BackgroundTransparency"] = 1;
 G2L["44"]["Size"] = UDim2.new(0.5102, 0, 0.18478, 0);
@@ -678,7 +695,7 @@ G2L["47"]["BorderSizePixel"] = 0;
 G2L["47"]["TextSize"] = 14;
 G2L["47"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
 G2L["47"]["BackgroundColor3"] = Color3.fromRGB(116, 116, 116);
-G2L["47"]["FontFace"] = Font.new([[rbxasset://fonts/families/Inconsolata.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
+G2L["47"]["FontFace"] = Font.new([[rbxasset://fonts/families/Ubuntu.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
 G2L["47"]["Size"] = UDim2.new(0.88435, 0, 0.36957, 0);
 G2L["47"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
 G2L["47"]["Text"] = [[UP]];
@@ -698,7 +715,7 @@ G2L["49"]["BorderSizePixel"] = 0;
 G2L["49"]["TextSize"] = 14;
 G2L["49"]["TextScaled"] = true;
 G2L["49"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
-G2L["49"]["FontFace"] = Font.new([[rbxasset://fonts/families/Inconsolata.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
+G2L["49"]["FontFace"] = Font.new([[rbxasset://fonts/families/Ubuntu.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
 G2L["49"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
 G2L["49"]["BackgroundTransparency"] = 1;
 G2L["49"]["Size"] = UDim2.new(0.44218, 0, 0.18478, 0);
@@ -1036,7 +1053,7 @@ local script = G2L["18"];
 	    if isOn then
 	        button.BackgroundColor3 = COLOR_ON
 	        if floatMenu then
-	            floatMenu.Visible = true
+	            floatMenu.Visible = false
 	        end
 	    else
 	        button.BackgroundColor3 = COLOR_OFF
