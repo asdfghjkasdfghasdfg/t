@@ -58,3 +58,152 @@ player.CharacterAdded:Connect(function(c)
 	hrp = char:WaitForChild("HumanoidRootPart")
 	humanoid = char:WaitForChild("Humanoid")
 end)
+
+
+--// Float GUI Steal Style with ON/OFF + Resist Toggle System
+--// by KzScriptsOfc + Resist Update
+
+
+local player = game.Players.LocalPlayer
+local char = player.Character or player.CharacterAdded:Wait()
+local hrp = char:WaitForChild("HumanoidRootPart")
+local humanoid = char:WaitForChild("Humanoid")
+
+local player = game.Players.LocalPlayer
+local floatAtivo = false
+local floatLoop = nil
+
+-- GUI Setup
+local gui = Instance.new("ScreenGui")
+gui.Name = "FLY1"
+gui.ResetOnSpawn = false
+gui.Parent = game.CoreGui
+
+local main = Instance.new("Frame")
+main.Name = "Main"
+main.Size = UDim2.new(0, 200, 0, 100)
+main.Position = UDim2.new(0.5, -100, 0.5, -50)
+main.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
+main.BorderSizePixel = 0
+main.Active = true
+main.Draggable = true
+main.Parent = gui
+
+local title = Instance.new("TextLabel")
+title.Name = "Title"
+title.Size = UDim2.new(1, 0, 0, 30)
+title.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+title.Text = "Fly Mode By HackManHub"
+title.TextColor3 = Color3.fromRGB(255, 255, 255)
+title.Font = Enum.Font.SourceSansBold
+title.TextSize = 16
+title.Parent = main
+
+local button = Instance.new("TextButton")
+button.Name = "FloatButton"
+button.Size = UDim2.new(0.8, 0, 0, 30)
+button.Position = UDim2.new(0.1, 0, 0.5, -15)
+button.BackgroundColor3 = Color3.fromRGB(0, 170, 255)
+button.Text = "Active Fly"
+button.TextColor3 = Color3.fromRGB(255, 255, 255)
+button.Font = Enum.Font.SourceSansBold
+button.TextSize = 14
+button.Parent = main
+
+
+local player = game.Players.LocalPlayer
+local char = player.Character or player.CharacterAdded:Wait()
+local hrp = char:WaitForChild("HumanoidRootPart")
+local humanoid = char:WaitForChild("Humanoid")
+
+-- Helper to create BodyPosition
+local function createFloat(hrp)
+	local bp = Instance.new("BodyPosition")
+	bp.Name = "FloatPosition"
+	bp.MaxForce = Vector3.new(0, 100000, 0)
+	bp.Position = hrp.Position + Vector3.new(0, 0.65, 0)
+	bp.D = 1000
+	bp.P = 3000
+	bp.Parent = hrp
+	return bp
+end
+
+-- Remove BodyPosition
+local function removeFloat(hrp)
+	if hrp and hrp:FindFirstChild("FloatPosition") then
+		hrp.FloatPosition:Destroy()
+	end
+end
+
+-- Main resist loop
+local function startFloatCycle(character)
+	local hrp = character:WaitForChild("HumanoidRootPart")
+
+	floatLoop = task.spawn(function()
+		while floatAtivo and character and character:FindFirstChild("Humanoid") and character.Humanoid.Health > 0 do
+			-- PHASE 1: Float active
+			button.Text = "Put OFF"
+			local bp = createFloat(hrp)
+			local t = tick()
+			while floatAtivo and tick() - t < 1 do -- float for 1s
+				if bp and bp.Parent then
+					bp.Position = hrp.Position + Vector3.new(0, 0.65, 0)
+				end
+				task.wait(0.05)
+			end
+			removeFloat(hrp)
+
+			-- PHASE 2: Resist (float off)
+			if floatAtivo then
+				button.Text = "Resting..."
+				task.wait(0.5) -- rest 1s
+				hrp.Velocity = Vector3.new(hrp.Velocity.X, 100, hrp.Velocity.Z)
+				task.wait(0.2)
+			end
+		end
+		removeFloat(hrp)
+		local player = game.Players.LocalPlayer
+local char = player.Character or player.CharacterAdded:Wait()
+local hrp = char:WaitForChild("HumanoidRootPart")
+local humanoid = char:WaitForChild("Humanoid")
+	end)
+end
+
+-- Stop loop
+local function stopFloat(character)
+	if floatLoop then
+		task.cancel(floatLoop)
+		floatLoop = nil
+	end
+	if character then
+		local hrp = character:FindFirstChild("HumanoidRootPart")
+		removeFloat(hrp)
+	end
+end
+
+-- Toggle button
+button.MouseButton1Click:Connect(function()
+	floatAtivo = not floatAtivo
+
+	if floatAtivo then
+		button.Text = "Put OFF"
+		button.BackgroundColor3 = Color3.fromRGB(255, 80, 80)
+		if player.Character then
+			startFloatCycle(player.Character)
+		end
+	else
+		button.Text = "Active Fly"
+		button.BackgroundColor3 = Color3.fromRGB(0, 170, 255)
+		if player.Character then
+			stopFloat(player.Character)
+		end
+	end
+end)
+
+-- Auto resume on respawn
+player.CharacterAdded:Connect(function(char)
+	task.wait(1)
+	if floatAtivo then
+		startFloatCycle(char)
+	end
+end)
