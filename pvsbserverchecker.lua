@@ -9,6 +9,13 @@ local function changeserver()
         Duration = 100,
     })
 
+	local function changeserver()
+    game:GetService("StarterGui"):SetCore("SendNotification", {
+        Title = "REXECUTE AFTER TELEPORTION",
+        Text = "REXECUTE AFTER TELEPORTION - HackManHub",
+        Duration = 100,
+    })
+
 	wait(5)
 
     local md5 = {}
