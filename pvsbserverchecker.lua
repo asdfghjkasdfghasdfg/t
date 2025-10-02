@@ -9,7 +9,6 @@ local function changeserver()
         Duration = 100,
     })
 
-	local function changeserver()
     game:GetService("StarterGui"):SetCore("SendNotification", {
         Title = "REXECUTE AFTER TELEPORTION",
         Text = "REXECUTE AFTER TELEPORTION - HackManHub",
