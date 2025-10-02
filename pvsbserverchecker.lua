@@ -4,14 +4,8 @@ local Players = game:GetService("Players")
 -- Your server change function
 local function changeserver()
     game:GetService("StarterGui"):SetCore("SendNotification", {
-        Title = "You Are Getting Teleported To A Free Private Server",
-        Text = "AKA EMPTY SERVER - HackManHub",
-        Duration = 100,
-    })
-
-    game:GetService("StarterGui"):SetCore("SendNotification", {
-        Title = "REXECUTE AFTER TELEPORTION",
-        Text = "REXECUTE AFTER TELEPORTION - HackManHub",
+        Title = "You Are Getting Teleported To A Free Private Server REXECUTE AFTER TELEPORTION - HackManHub",
+        Text = "AKA EMPTY SERVER REXECUTE AFTER TELEPORTION - HackManHub - HackManHub",
         Duration = 100,
     })
 
