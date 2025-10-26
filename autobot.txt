@@ -1,0 +1,427 @@
+
+
+
+local api = loadstring(game:HttpGet("https://sdkapi-public.luarmor.net/library.lua"))()
+
+local HttpService = game:GetService("HttpService")
+local Players = game:GetService("Players")
+local LocalPlayer = Players.LocalPlayer
+local fileName = "HackManHub_Key.txt"
+
+-- Function to load key from file
+local function loadKey()
+    if isfile(fileName) then
+        local data = HttpService:JSONDecode(readfile(fileName))
+        return data.key
+    end
+    return nil
+end
+
+
+
+
+-- If no key in file, you can manually set it
+if not script_key then
+     LocalPlayer:Kick("No key found in file. Please set your key manually. If This Keep Apearing Contact Owner") -- replace this manually if needed
+end
+
+print("Current script_key:", script_key)
+
+
+
+local Players = game:GetService("Players")
+local player = Players.LocalPlayer
+local screenGui = Instance.new("ScreenGui")
+screenGui.Name = "PrintDisplay"
+screenGui.ResetOnSpawn = false
+screenGui.Parent = player:WaitForChild("PlayerGui")
+
+-- Create a TextLabel
+local textLabel = Instance.new("TextLabel")
+textLabel.Name = "PrintText"
+textLabel.BackgroundTransparency = 1
+textLabel.TextColor3 = Color3.new(1, 1, 1)
+textLabel.Font = Enum.Font.SourceSansBold
+textLabel.TextSize = 18
+textLabel.TextXAlignment = Enum.TextXAlignment.Right
+textLabel.TextYAlignment = Enum.TextYAlignment.Top
+textLabel.AnchorPoint = Vector2.new(1, 0) -- top-right
+textLabel.Position = UDim2.new(1, -10, 0, 10)
+textLabel.Size = UDim2.new(0, 300, 0, 25)
+textLabel.TextWrapped = true
+textLabel.Text = ""
+textLabel.Parent = screenGui
+
+-- Save original print
+local originalPrint = print
+
+-- Override print to also update GUI
+print = function(...)
+    local args = {}
+    for i = 1, select("#", ...) do
+        table.insert(args, tostring(select(i, ...)))
+    end
+    local message = table.concat(args, " ")
+    
+    -- Update GUI
+    textLabel.Text = message
+    
+    -- Call original print as well
+    originalPrint(...)
+end
+
+print("auto server hopper v3 loading by hackmanhub")
+
+
+getgenv().webhook = "https://discord.com/api/webhooks/1422634468237119654/rgkIumiulTGdBeduQVtkcJX0K4wrC20REsQpQCwI3ByiNNWnRn7dEitHpALW-oLvqqDM"
+
+getgenv().TargetPetNames = {
+ "Las Sis",
+ "La Vacca Saturno Saturnita",
+ "Vulturino Skeletono",
+ "Bulbito Bandito Traktorito",
+ "Las Cappuchinas",
+ "Los Bombinitos",
+ "Los Orcalitos",
+ "Cacasito Satalito",
+ "Orcalita Orcala",
+ "Tartaruga Cisterna",
+ "Corn Corn Corn Sahur",
+ "Squalanana",
+ "Dug Dug Dug",
+ "Los Tipi Tacos",
+ "Piccionetta Macchina",
+ "Mastodontico Telepiedone",
+ "Anpali Babel",
+ "Belula Beluga",
+ "Pop Pop Sahur",
+ "Trippi Troppi Troppa Trippa",
+ "Urubini Flamenguini",
+ "Espresso Signora",
+ "Odin Din Din Dun",
+ "Los Crocodillitos",
+ "Los Tacoritas",
+ "Los Mobilis",
+ "Spooky and Pumpky",
+ "Eviledon",
+ "Los 67",
+ "Espresso Signora",
+ "Odin Din Din Dun",
+ "Trippi Troppi Troppa Trippa",
+ "Urubini Flamenguini",
+ "Los Crocodillitos",
+ "Los Tacoritas",
+ "Los Mobilis",
+ "Spooky and Pumpky",
+ "Eviledon",
+ "Blackhole Goat",
+ "Bisonte Giuppitere",
+ "Chachechi",
+ "Trenostruzzo Turbo 4000",
+ "Los Matteos",
+ "Chimpanzini Spiderini",
+ "Karkerkar Kurkur",
+ "Sammyni Spyderini",
+ "Guerriro Digitale",
+ "Extinct Tralalero",
+ "Fragola La La La",
+ "Extinct Matteo",
+ "Dul Dul Dul",
+ "Los Tralaleritos",
+ "Las Tralaleritas",
+ "La Karkerkar Combinasion",
+ "Job Job Job Sahur",
+ "Graipuss Medussi",
+ "Los Spyderinis",
+ "Nooo My Hotspot",
+ "Tortuginni Dragonfruitini",
+ "La Sahur Combinasion",
+ "Quesadilla Crocodila",
+ "La Grande Combinasion",
+ "Nuclearo Dinossauro",
+ "La Extinct Grande",
+ "Garama and Madundung",
+ "Pot Hotspot",
+ "Las Vaquitas Saturnitas",
+ "Chicleteira Bicicleteira",
+ "Secret Lucky Block",
+ "Spaghetti Tualetti",
+ "Agarrini la Palini",
+ "Los Noo My Hotspotsitos",
+ "67",
+ "Los Chicleteiras",
+ "Los Combinasionas",
+ "Los Bros",
+ "Celularcini Viciosini",
+ "Los Hotspotsitos",
+ "Tralaledon",
+ "Esok Sekolah",
+ "Ketupat Kepat",
+ "La Supreme Combinasion",
+ "Ketchuru and Musturu",
+ "Dragon Cannelloni",
+ "Los Pakrahmatmamatcitos",
+ "Pakrahmatmamatcita",
+ "Tralalero Tralala",
+ "Tralalera Tralali",
+ "Tractoro Dinosauro",
+ "Strawberry Elephant"
+}
+
+--// Services
+local Players = game:GetService("Players")
+local HttpService = game:GetService("HttpService")
+local TeleportService = game:GetService("TeleportService")
+
+-- Wait for LocalPlayer
+local LocalPlayer
+repeat
+    LocalPlayer = Players.LocalPlayer
+    task.wait()
+until LocalPlayer
+
+--// User Configuration
+local webhook = getgenv().webhook
+local targetPets = getgenv().TargetPetNames
+
+--// Visited Job Tracking
+local visitedJobIds = {[game.JobId] = true}
+local hops = 0
+local maxHopsBeforeReset = 50
+
+--// Teleport Fail Handling
+local teleportFails = 0
+local maxTeleportRetries = 3
+
+--// Found Pet Cache
+local detectedPets = {}
+local webhookSent = false
+local stopHopping = false
+
+--// Teleport Fail Handling
+TeleportService.TeleportInitFailed:Connect(function(_, result)
+    teleportFails += 1
+    if result == Enum.TeleportResult.GameFull then
+        warn("⚠️ Game full. Retrying teleport...")
+    elseif result == Enum.TeleportResult.Unauthorized then
+        warn("❌ Unauthorized/private server. Blacklisting and retrying...")
+        visitedJobIds[game.JobId] = true
+    else
+        warn("❌ Other teleport error:", result)
+    end
+
+    if teleportFails >= maxTeleportRetries then
+        warn("⚠️ Too many teleport fails. Forcing fresh server...")
+        teleportFails = 0
+        task.wait(1)
+        TeleportService:Teleport(game.PlaceId)
+    else
+        task.wait(1)
+        serverHop()
+    end
+end)
+
+--// ESP Function
+local function addESP(targetModel)
+    if targetModel:FindFirstChild("PetESP") then return end
+    local Billboard = Instance.new("BillboardGui")
+    Billboard.Name = "PetESP"
+    Billboard.Adornee = targetModel
+    Billboard.Size = UDim2.new(0, 100, 0, 30)
+    Billboard.StudsOffset = Vector3.new(0, 3, 0)
+    Billboard.AlwaysOnTop = true
+    Billboard.Parent = targetModel
+
+    local Label = Instance.new("TextLabel")
+    Label.Size = UDim2.new(1, 0, 1, 0)
+    Label.BackgroundTransparency = 1
+    Label.Text = "🎯 Target Pet Here Worthy Pet Here! 🎯 "
+    Label.TextColor3 = Color3.fromRGB(255, 0, 0)
+    Label.TextStrokeTransparency = 0.5
+    Label.Font = Enum.Font.SourceSansBold
+    Label.TextScaled = true
+    Label.Parent = Billboard
+end
+
+--// Webhook Function
+local function sendWebhook(foundPets)
+    if not webhook then
+        warn("⚠️ Webhook is nil, skipping notification.")
+        return
+    end
+
+    local petCounts = {}
+    for _, pet in ipairs(foundPets) do
+        if pet then
+            petCounts[pet] = (petCounts[pet] or 0) + 1
+        end
+    end
+
+    local formattedPets = {}
+    for petName, count in pairs(petCounts) do
+        table.insert(formattedPets, count > 1 and petName .. " x" .. count or petName)
+    end
+
+    local serverLink = "[Join](https://fern.wtf/joiner?placeId=" .. game.PlaceId .. "&gameInstanceId=" .. game.JobId .. ")"
+
+    local jsonData = HttpService:JSONEncode({
+        ["content"] = "🚨 SECRET AND BRAINROT GOD PET DETECTED! <@&1413885717603549344>",
+        ["embeds"] = {{
+            ["title"] = "🧠 Pet(s) Found!",
+            ["description"] = "Brainrot-worthy pet detected in the server! Finder By HackManHub",
+            ["fields"] = {
+                { ["name"] = "Found Pet(s)", ["value"] = table.concat(formattedPets, "\n") },
+                { ["name"] = "Server Link", ["value"] = serverLink },
+                { ["name"] = "Time", ["value"] = os.date("%Y-%m-%d %H:%M:%S") }
+            },
+            ["color"] = 15105570
+        }}
+    })
+
+    local req = http_request or request or syn and syn.request
+    if req then
+        local success, err = pcall(function()
+            req({
+                Url = webhook,
+                Method = "POST",
+                Headers = { ["Content-Type"] = "application/json" },
+                Body = jsonData
+            })
+        end)
+        if success then
+        print("🎯 New pet appeared:", obj.Name)
+        else
+            warn("❌ Failed to send webhook:", err)
+        end
+    else
+        warn("❌ Executor doesn't support HTTP requests.")
+    end
+
+    -- Force server hop after sending webhook
+    task.spawn(serverHop)
+end
+
+--// Strict Target Matching
+local function matchesTarget(petName)
+    for _, target in ipairs(targetPets) do
+        if string.lower(petName) == string.lower(target) then
+            return true
+        end
+    end
+    return false
+end
+
+--// Check all plots for exact pets
+local function checkForPets()
+    local found = {}
+    if workspace:FindFirstChild("Plots") then
+        for _, plot in ipairs(workspace.Plots:GetChildren()) do
+            if plot:IsA("Model") then
+                for _, obj in ipairs(plot:GetChildren()) do
+                    if obj:IsA("Model") and matchesTarget(obj.Name) and not obj:FindFirstChild("PetESP") then
+                        addESP(obj)
+                        table.insert(found, obj.Name)
+                        stopHopping = true
+                    end
+                end
+            end
+        end
+    end
+    return found
+end
+
+--// Server Hop Function
+function serverHop()
+    if stopHopping then return end
+    task.wait(1.5)
+
+    local cursor = nil
+    local PlaceId, JobId = game.PlaceId, game.JobId
+    local tries = 0
+
+    hops += 1
+    if hops >= maxHopsBeforeReset then
+        visitedJobIds = {[JobId] = true}
+        hops = 0
+        print("♻️ Resetting visited JobIds.")
+    end
+
+    while tries < 3 do
+        local url = "https://games.roblox.com/v1/games/" .. PlaceId .. "/servers/Public?sortOrder=Asc&limit=100"
+        if cursor then url = url .. "&cursor=" .. cursor end
+
+        local success, response = pcall(function()
+            return HttpService:JSONDecode(game:HttpGet(url))
+        end)
+
+        if success and response and response.data then
+            local servers = {}
+            for _, server in ipairs(response.data) do
+                if tonumber(server.playing or 0) < tonumber(server.maxPlayers or 1)
+                    and server.id ~= JobId
+                    and not visitedJobIds[server.id] then
+                        table.insert(servers, server.id)
+                end
+            end
+
+            if #servers > 0 then
+                local picked = servers[math.random(1, #servers)]
+                print("✅ Hopping to server:", picked)
+                teleportFails = 0
+                TeleportService:TeleportToPlaceInstance(PlaceId, picked)
+                return
+            end
+
+            cursor = response.nextPageCursor
+            if not cursor then
+                tries += 1
+                cursor = nil
+                task.wait(0.5)
+            end
+        else
+            warn("⚠️ Failed to fetch server list. Retrying...")
+            tries += 1
+            task.wait(0.5)
+        end
+    end
+
+    warn("❌ No valid servers found. Forcing random teleport...")
+    TeleportService:Teleport(PlaceId)
+end
+
+--// Live Detection
+workspace.DescendantAdded:Connect(function(obj)
+    task.wait(0.25)
+    if obj:IsA("Model") and obj.Parent and obj.Parent:IsDescendantOf(workspace.Plots) then
+        if matchesTarget(obj.Name) and not obj:FindFirstChild("PetESP") then
+            if not detectedPets[obj] then
+                detectedPets[obj] = true
+                addESP(obj)
+                print("🎯 New pet appeared:", obj.Name)
+                stopHopping = true
+                if not webhookSent then
+                    sendWebhook({obj.Name})
+                    webhookSent = true
+                end
+            end
+        end
+    end
+end)
+
+--// Start
+task.wait(6)
+local petsFound = checkForPets()
+if #petsFound > 0 then
+    for _, name in ipairs(petsFound) do
+        detectedPets[name] = true
+    end
+    if not webhookSent then
+        print("🎯 Found pet(s):", table.concat(petsFound, ", "))
+        sendWebhook(petsFound)
+        webhookSent = true
+    task.delay(1.5, serverHop)
+    end
+else
+    print("🔍 No target pets found. Hopping to next server...")
+    task.delay(1.5, serverHop)
+end
